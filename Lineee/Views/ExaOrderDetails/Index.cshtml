@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Lineee.Models.ExaOrderDetails>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.exam_details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExaOrders.exam_number)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.exam_details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.details_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.details_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.details_id })
+        </td>
+    </tr>
+}
+
+</table>

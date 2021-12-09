@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LineNotify1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Details">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="exam_id" Type="int" Nullable="false" />
+    <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="exam_details" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="doctor_id" />
+    </Key>
+    <Property Name="doctor_id" Type="int" Nullable="false" />
+    <Property Name="doctor_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="division" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="exam_id" />
+    </Key>
+    <Property Name="exam_id" Type="int" Nullable="false" />
+    <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExaOrderDetails">
+    <Key>
+      <PropertyRef Name="details_id" />
+    </Key>
+    <Property Name="details_id" Type="int" Nullable="false" />
+    <Property Name="exam_number" Type="int" Nullable="false" />
+    <Property Name="exam_details" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExaOrders">
+    <Key>
+      <PropertyRef Name="exam_number" />
+    </Key>
+    <Property Name="exam_number" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="exam_id" Type="int" Nullable="false" />
+    <Property Name="patient_id" Type="int" Nullable="false" />
+    <Property Name="doctor_id" Type="int" Nullable="false" />
+    <Property Name="order_date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="patient_id" />
+    </Key>
+    <Property Name="patient_id" Type="int" Nullable="false" />
+    <Property Name="id_card" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="patient_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="birth_date" Type="date" Nullable="false" />
+    <Property Name="blood" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="gender" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Report">
+    <Key>
+      <PropertyRef Name="report_id" />
+    </Key>
+    <Property Name="report_id" Type="int" Nullable="false" />
+    <Property Name="exam_number" Type="int" Nullable="false" />
+    <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="exam_details" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="exam_value" Type="nvarchar(max)" />
+    <Property Name="report_date" Type="date" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_檢驗細項索引檔_檢驗項目索引檔">
+    <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+    <End Role="Details" Type="Self.Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exam">
+        <PropertyRef Name="exam_id" />
+      </Principal>
+      <Dependent Role="Details">
+        <PropertyRef Name="exam_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_檢驗單細項_檢驗單號">
+    <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
+    <End Role="ExaOrderDetails" Type="Self.ExaOrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExaOrders">
+        <PropertyRef Name="exam_number" />
+      </Principal>
+      <Dependent Role="ExaOrderDetails">
+        <PropertyRef Name="exam_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_檢驗單號_病人索引檔">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="patient_id" />
+      </Principal>
+      <Dependent Role="ExaOrders">
+        <PropertyRef Name="patient_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_檢驗單號_檢驗項目索引檔">
+    <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+    <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exam">
+        <PropertyRef Name="exam_id" />
+      </Principal>
+      <Dependent Role="ExaOrders">
+        <PropertyRef Name="exam_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_檢驗單號_醫師索引檔">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="doctor_id" />
+      </Principal>
+      <Dependent Role="ExaOrders">
+        <PropertyRef Name="doctor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_檢驗報告_檢驗單號">
+    <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
+    <End Role="Report" Type="Self.Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExaOrders">
+        <PropertyRef Name="exam_number" />
+      </Principal>
+      <Dependent Role="Report">
+        <PropertyRef Name="exam_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LineNotify1ModelStoreContainer">
+    <EntitySet Name="Details" EntityType="Self.Details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Exam" EntityType="Self.Exam" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExaOrderDetails" EntityType="Self.ExaOrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExaOrders" EntityType="Self.ExaOrders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_檢驗細項索引檔_檢驗項目索引檔" Association="Self.FK_檢驗細項索引檔_檢驗項目索引檔">
+      <End Role="Exam" EntitySet="Exam" />
+      <End Role="Details" EntitySet="Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_檢驗單細項_檢驗單號" Association="Self.FK_檢驗單細項_檢驗單號">
+      <End Role="ExaOrders" EntitySet="ExaOrders" />
+      <End Role="ExaOrderDetails" EntitySet="ExaOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_檢驗單號_病人索引檔" Association="Self.FK_檢驗單號_病人索引檔">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="ExaOrders" EntitySet="ExaOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_檢驗單號_檢驗項目索引檔" Association="Self.FK_檢驗單號_檢驗項目索引檔">
+      <End Role="Exam" EntitySet="Exam" />
+      <End Role="ExaOrders" EntitySet="ExaOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_檢驗單號_醫師索引檔" Association="Self.FK_檢驗單號_醫師索引檔">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="ExaOrders" EntitySet="ExaOrders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_檢驗報告_檢驗單號" Association="Self.FK_檢驗報告_檢驗單號">
+      <End Role="ExaOrders" EntitySet="ExaOrders" />
+      <End Role="Report" EntitySet="Report" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
