@@ -128,8 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ExaOrderDetailsController.cs" />
-    <Compile Include="Controllers\ExaOrdersController.cs" />
+    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,16 +224,8 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\ExaOrders\Create.cshtml" />
-    <Content Include="Views\ExaOrders\Delete.cshtml" />
-    <Content Include="Views\ExaOrders\Details.cshtml" />
-    <Content Include="Views\ExaOrders\Edit.cshtml" />
-    <Content Include="Views\ExaOrders\Index.cshtml" />
-    <Content Include="Views\ExaOrderDetails\Create.cshtml" />
-    <Content Include="Views\ExaOrderDetails\Delete.cshtml" />
-    <Content Include="Views\ExaOrderDetails\Details.cshtml" />
-    <Content Include="Views\ExaOrderDetails\Edit.cshtml" />
-    <Content Include="Views\ExaOrderDetails\Index.cshtml" />
+    <Content Include="Views\Doctor\index.cshtml" />
+    <Content Include="Views\Doctor\Choose.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
