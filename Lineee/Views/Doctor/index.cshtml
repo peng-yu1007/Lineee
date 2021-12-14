@@ -52,6 +52,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.gender)
             </td>
+
+            <td>
+                @Html.ActionLink("選擇", "Choose", new { patient_id = item.patient_id, id_card = item.id_card, patient_name = item.patient_name, birth_date = item.birth_date.ToString("yyyy/MM/dd"), blood = item.blood, gender = item.gender })
+            </td>
+
         </tr>
     }
 

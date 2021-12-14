@@ -15,5 +15,18 @@ namespace Lineee.Controllers
         {
             return View(db.Patient.ToList());
         }
+
+        public ActionResult Choose(string patient_id, string id_card, string patient_name, string birth_date, string blood, string gender)
+        {
+            ViewBag.patient_id = patient_id;
+            ViewBag.id_card = id_card;
+            ViewBag.patient_name = patient_name;
+            ViewBag.birth_date = birth_date;
+            ViewBag.blood = blood;
+            ViewBag.gender = gender;
+            return View("Choose");
+        }
+
+
     }
 }
