@@ -224,6 +224,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Doctor\index.cshtml" />
     <Content Include="Views\Doctor\Choose.cshtml" />
+    <Content Include="Views\Home\index1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
