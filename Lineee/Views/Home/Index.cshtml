@@ -6,6 +6,36 @@
     <h1>目的</h1>
     <p class="lead">Line訊息報告即時通知這個專題主要是給醫生及檢驗師所使用，醫生可以建立醫囑並且多次修改儲存，完成的醫囑交給檢驗師填上檢驗值，當檢驗報告完成後，系統會自動發送經過參數加密的Line連結到醫生的Line中，醫生需要先解密才能打開連結瀏覽報告，同時保障病人隱私。</p>
 </div>
-<td>
-    @Html.ActionLink("Connect", "index1")
-</td>
+
+<!DOCTYPE html>
+<html lang="tw">
+<head>
+    <script type=”text/javascript” src=”http://code.jquery.com/jquery-latest.min.js”></script>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function connect() {
+            var URL = 'https://notify-bot.line.me/oauth/authorize?';
+            URL += 'response_type=code';
+            URL += '&client_id=6bDII4Bu94ODwiP3yy35YR';
+            URL += '&redirect_uri=https://localhost:44325/';
+            URL += '&scope=notify';
+            URL += '&state=NO_STATE';
+            URL += '&response_mode=form_post';
+            window.location.href = URL;
+        }
+        function message(){
+            $.post('https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec',
+                { msg: '哈囉!!!' },
+                function (e) {
+                    console.log(e);
+                });
+        }
+    </script>
+</head>
+<body>
+    <button onclick="connect();"> 連結到 LineNotify 按鈕 </button>
+    <button onclick="message();"> 傳送訊息  </button>
+</body>
+</html>

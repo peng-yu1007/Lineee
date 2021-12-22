@@ -225,7 +225,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Doctor\index.cshtml" />
     <Content Include="Views\Doctor\Choose.cshtml" />
-    <Content Include="Views\Home\index1.cshtml" />
     <Content Include="Views\ExaOrders\Create.cshtml" />
     <Content Include="Views\ExaOrders\Delete.cshtml" />
     <Content Include="Views\ExaOrders\Details.cshtml" />
