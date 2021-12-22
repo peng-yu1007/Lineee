@@ -33,31 +33,35 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.patient_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.id_card)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.patient_name)
-            </td>
-            <td>
-                @item.birth_date.ToString("yyyy/MM/dd")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.blood)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.gender)
-            </td>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.patient_id)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.id_card)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.patient_name)
+    </td>
+    <td>
+        @item.birth_date.ToString("yyyy/MM/dd")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.blood)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.gender)
+    </td>
 
-            <td>
-                @Html.ActionLink("選擇", "Choose", new { patient_id = item.patient_id, id_card = item.id_card, patient_name = item.patient_name, birth_date = item.birth_date.ToString("yyyy/MM/dd"), blood = item.blood, gender = item.gender })
-            </td>
+    <td>
+        @using (@Html.BeginForm("Create", "ExaOrders", FormMethod.Post))
+        {
+            @Html.Hidden("patient_id", item.id_card)
+            <input type="submit" value="選擇" class="btn btn-default" />
+        }
+    </td>
 
-        </tr>
+</tr>
     }
 
 </table>

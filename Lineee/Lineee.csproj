@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DoctorController.cs" />
+    <Compile Include="Controllers\ExaOrdersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -225,6 +226,11 @@
     <Content Include="Views\Doctor\index.cshtml" />
     <Content Include="Views\Doctor\Choose.cshtml" />
     <Content Include="Views\Home\index1.cshtml" />
+    <Content Include="Views\ExaOrders\Create.cshtml" />
+    <Content Include="Views\ExaOrders\Delete.cshtml" />
+    <Content Include="Views\ExaOrders\Details.cshtml" />
+    <Content Include="Views\ExaOrders\Edit.cshtml" />
+    <Content Include="Views\ExaOrders\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
