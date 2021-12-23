@@ -25,6 +25,7 @@ namespace Lineee.Models
         public int exam_id { get; set; }
         public int patient_id { get; set; }
         public int doctor_id { get; set; }
+
         public System.DateTime order_date { get; set; }
     
         public virtual Doctor Doctor { get; set; }
