@@ -45,25 +45,30 @@ namespace Lineee.Controllers
             return View();
         }
 
+        public ActionResult CreateSave([Bind(Include = "exam_number,patient_id,exam_id,doctor_id,order_date")] ExaOrders exaOrders)
+        {
+                db.ExaOrders.Add(exaOrders);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            
+
+        }
+
         // POST: ExaOrders/Create
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create1(string patient_id,[Bind(Include = "exam_number,exam_id,doctor_id,order_date")] ExaOrders exaOrders)
-        {
-            if (ModelState.IsValid)
-            {
-                db.ExaOrders.Add(exaOrders);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
 
+        public ActionResult Create([Bind(Include = "exam_number,patient_id,exam_id,doctor_id,order_date")] ExaOrders exaOrders)
+        {
+          
             ViewBag.doctor_id = new SelectList(db.Doctor, "doctor_id", "doctor_name", exaOrders.doctor_id);
             ViewBag.exam_id = new SelectList(db.Exam, "exam_id", "exam_name", exaOrders.exam_id);
-            ViewBag.patient_id = patient_id;
+            ViewBag.patient_id = new SelectList(db.Patient,"patient_id","id_card",exaOrders.patient_id);
             return View(exaOrders);
         }
+
+      
 
         // GET: ExaOrders/Edit/5
         public ActionResult Edit(int? id)
