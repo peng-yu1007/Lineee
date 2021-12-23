@@ -54,7 +54,7 @@
     </td>
 
     <td>
-        @using (@Html.BeginForm("Create", "ExaOrders", FormMethod.Post))
+        @using (@Html.BeginForm("Create", "ExaOrders", new { id_card = item.id_card }, FormMethod.Post))
         {
             @Html.Hidden("patient_id", item.patient_id)
             <input type="submit" value="選擇" class="btn btn-default" />

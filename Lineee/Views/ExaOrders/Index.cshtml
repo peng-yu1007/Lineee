@@ -29,7 +29,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.order_date)
+            @item.order_date.ToString("yyyy/MM/dd")
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Doctor.doctor_name)

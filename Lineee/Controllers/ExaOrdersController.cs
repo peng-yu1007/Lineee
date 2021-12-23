@@ -59,12 +59,13 @@ namespace Lineee.Controllers
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
 
-        public ActionResult Create([Bind(Include = "exam_number,patient_id,exam_id,doctor_id,order_date")] ExaOrders exaOrders)
+        public ActionResult Create(string id_card,[Bind(Include = "exam_number,patient_id,exam_id,doctor_id,order_date")] ExaOrders exaOrders)
         {
           
             ViewBag.doctor_id = new SelectList(db.Doctor, "doctor_id", "doctor_name", exaOrders.doctor_id);
             ViewBag.exam_id = new SelectList(db.Exam, "exam_id", "exam_name", exaOrders.exam_id);
             ViewBag.patient_id = new SelectList(db.Patient,"patient_id","id_card",exaOrders.patient_id);
+            ViewBag.id_card = id_card;
             return View(exaOrders);
         }
 
