@@ -17,7 +17,6 @@ namespace Lineee.Models
         public int report_id { get; set; }
         public int exam_number { get; set; }
         public string exam_name { get; set; }
-        public string exam_details { get; set; }
         public string exam_value { get; set; }
         public System.DateTime report_date { get; set; }
     

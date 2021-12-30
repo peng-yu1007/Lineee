@@ -62,13 +62,84 @@
           <Key>
             <PropertyRef Name="report_id" />
           </Key>
-          <Property Name="report_id" Type="int" Nullable="false" />
+          <Property Name="report_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="exam_number" Type="int" Nullable="false" />
           <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="exam_details" Type="nvarchar(max)" Nullable="false" />
           <Property Name="exam_value" Type="nvarchar(max)" />
           <Property Name="report_date" Type="date" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Details_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="Details" Type="Self.Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="exam_id" />
+            </Principal>
+            <Dependent Role="Details">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExaOrderDetails_ExaOrders">
+          <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
+          <End Role="ExaOrderDetails" Type="Self.ExaOrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExaOrders">
+              <PropertyRef Name="exam_number" />
+            </Principal>
+            <Dependent Role="ExaOrderDetails">
+              <PropertyRef Name="exam_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExaOrders_Doctor">
+          <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+          <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Doctor">
+              <PropertyRef Name="doctor_id" />
+            </Principal>
+            <Dependent Role="ExaOrders">
+              <PropertyRef Name="doctor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExaOrders_Exam">
+          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
+          <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Exam">
+              <PropertyRef Name="exam_id" />
+            </Principal>
+            <Dependent Role="ExaOrders">
+              <PropertyRef Name="exam_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExaOrders_Patient">
+          <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+          <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patient">
+              <PropertyRef Name="patient_id" />
+            </Principal>
+            <Dependent Role="ExaOrders">
+              <PropertyRef Name="patient_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Report_ExaOrders">
+          <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
+          <End Role="Report" Type="Self.Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ExaOrders">
+              <PropertyRef Name="exam_number" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="exam_number" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="LineNotify1ModelStoreContainer">
           <EntitySet Name="Details" EntityType="Self.Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
@@ -77,6 +148,30 @@
           <EntitySet Name="ExaOrders" EntityType="Self.ExaOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Details_Exam" Association="Self.FK_Details_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="Details" EntitySet="Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExaOrderDetails_ExaOrders" Association="Self.FK_ExaOrderDetails_ExaOrders">
+            <End Role="ExaOrders" EntitySet="ExaOrders" />
+            <End Role="ExaOrderDetails" EntitySet="ExaOrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExaOrders_Doctor" Association="Self.FK_ExaOrders_Doctor">
+            <End Role="Doctor" EntitySet="Doctor" />
+            <End Role="ExaOrders" EntitySet="ExaOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExaOrders_Exam" Association="Self.FK_ExaOrders_Exam">
+            <End Role="Exam" EntitySet="Exam" />
+            <End Role="ExaOrders" EntitySet="ExaOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExaOrders_Patient" Association="Self.FK_ExaOrders_Patient">
+            <End Role="Patient" EntitySet="Patient" />
+            <End Role="ExaOrders" EntitySet="ExaOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Report_ExaOrders" Association="Self.FK_Report_ExaOrders">
+            <End Role="ExaOrders" EntitySet="ExaOrders" />
+            <End Role="Report" EntitySet="Report" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -153,7 +248,6 @@
           <Property Name="report_id" Type="Int32" Nullable="false" />
           <Property Name="exam_number" Type="Int32" Nullable="false" />
           <Property Name="exam_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="exam_details" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="exam_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="report_date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ExaOrders" Relationship="Self.FK_檢驗報告_檢驗單號" FromRole="Report" ToRole="ExaOrders" />
@@ -334,7 +428,6 @@
                 <ScalarProperty Name="report_id" ColumnName="report_id" />
                 <ScalarProperty Name="exam_number" ColumnName="exam_number" />
                 <ScalarProperty Name="exam_name" ColumnName="exam_name" />
-                <ScalarProperty Name="exam_details" ColumnName="exam_details" />
                 <ScalarProperty Name="exam_value" ColumnName="exam_value" />
                 <ScalarProperty Name="report_date" ColumnName="report_date" />
               </MappingFragment>
