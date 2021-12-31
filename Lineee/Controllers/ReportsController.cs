@@ -55,9 +55,15 @@ namespace Lineee.Controllers
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        public ActionResult Create([Bind(Include = "report_id,exam_number,exam_name,exam_details,exam_value,report_date")] Report report)
+        public ActionResult Create([Bind(Include = "report_id,exam_number,exam_name,exam_details,exam_value,report_date,exam_id")] Report report)
         {
             ViewBag.exam_number = new SelectList(db.ExaOrders, "exam_number", "exam_number", report.exam_number);
+
+            Exam exam = db.Exam.Find(report.exam_id);
+            report.exam_name = exam.exam_name;
+            ViewBag.exam_name = new SelectList(db.ExaOrders, "exam_name", "exam_name", report.exam_name);
+
+
             return View(report);
         }
 

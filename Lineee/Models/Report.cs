@@ -21,5 +21,7 @@ namespace Lineee.Models
         public System.DateTime report_date { get; set; }
     
         public virtual ExaOrders ExaOrders { get; set; }
+
+        public int exam_id { get; set; }
     }
 }
