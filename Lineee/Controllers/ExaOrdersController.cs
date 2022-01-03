@@ -66,6 +66,9 @@ namespace Lineee.Controllers
             ViewBag.exam_id = new SelectList(db.Exam, "exam_id", "exam_name", exaOrders.exam_id);
             ViewBag.patient_id = new SelectList(db.Patient,"patient_id","id_card",exaOrders.patient_id);
             ViewBag.id_card = id_card;
+
+            exaOrders.order_date = DateTime.Now.Date;
+
             return View(exaOrders);
         }
 

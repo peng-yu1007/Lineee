@@ -63,6 +63,7 @@ namespace Lineee.Controllers
             report.exam_name = exam.exam_name;
             ViewBag.exam_name = new SelectList(db.ExaOrders, "exam_name", "exam_name", report.exam_name);
 
+            report.report_date = DateTime.Now.Date;
 
             return View(report);
         }

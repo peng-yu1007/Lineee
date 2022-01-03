@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.order_date)
+            @Convert.ToDateTime(Model.order_date).ToString("yyyy/MM/dd")
         </dd>
 
         <dt>
