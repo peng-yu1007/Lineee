@@ -4,11 +4,58 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>醫囑</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("開單日期")
+        </th>
+        <th>
+            @Html.DisplayName("醫生姓名")
+        </th>
+        <th>
+            @Html.DisplayName("檢驗項目")
+        </th>
+        <th>
+            @Html.DisplayName("身分證")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.order_date.ToString("yyyy/MM/dd")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.doctor_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exam.exam_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.id_card)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.exam_number }) |
+                @Html.ActionLink("Details", "Details", new { id = item.exam_number }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.exam_number })
+            </td>
+
+            <td>
+                @using (@Html.BeginForm("Create", "Reports", FormMethod.Post))
+                {
+                    @Html.Hidden("exam_number", item.exam_number)
+                    @Html.Hidden("exam_id", item.exam_id)
+                    <input type="submit" value="選擇" class="btn btn-default" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>
 <table class="table">
     <tr>
         <th>
@@ -26,35 +73,36 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @item.order_date.ToString("yyyy/MM/dd")
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Doctor.doctor_name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Exam.exam_name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Patient.id_card)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.exam_number }) |
-        @Html.ActionLink("Details", "Details", new { id = item.exam_number }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.exam_number })
-    </td>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.order_date.ToString("yyyy/MM/dd")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Doctor.doctor_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exam.exam_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Patient.id_card)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.exam_number }) |
+                @Html.ActionLink("Details", "Details", new { id = item.exam_number }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.exam_number })
+            </td>
 
-    <td>
-        @using (@Html.BeginForm("Create", "Reports", FormMethod.Post))
-        {
-            @Html.Hidden("exam_number", item.exam_number)
-            @Html.Hidden("exam_id", item.exam_id)
-            <input type="submit" value="選擇" class="btn btn-default" />
-        }
-    </td>
-</tr>
-}
+            <td>
+                @using (@Html.BeginForm("Create", "Reports", FormMethod.Post))
+                {
+                    @Html.Hidden("exam_number", item.exam_number)
+                    @Html.Hidden("exam_id", item.exam_id)
+                    <input type="submit" value="選擇" class="btn btn-default" />
+                }
+            </td>
+        </tr>
+    }
 
 </table>

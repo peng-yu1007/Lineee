@@ -4,11 +4,8 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>檢驗報告</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -45,9 +42,51 @@
                 @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
-            </td>        
+            </td>
         </tr>
 
     }
 
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayName("檢驗項目")
+            </th>
+            <th>
+                @Html.DisplayName("檢驗值")
+            </th>
+            <th>
+                @Html.DisplayName("報告日期")
+            </th>
+            <th>
+                @Html.DisplayName("檢驗單號")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.exam_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.exam_value)
+                </td>
+                <td>
+                    @item.report_date.ToString("yyyy/MM/dd")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
+                </td>
+            </tr>
+
+        }
+
+    </table>
 </table>

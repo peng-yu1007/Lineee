@@ -11,6 +11,64 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayName("病歷號")
+        </th>
+        <th>
+            @Html.DisplayName("身分證")
+        </th>
+        <th>
+            @Html.DisplayName("病人姓名")
+        </th>
+        <th>
+            @Html.DisplayName("出生日期")
+        </th>
+        <th>
+            @Html.DisplayName("血型")
+        </th>
+        <th>
+            @Html.DisplayName("性別")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.patient_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_card)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.patient_name)
+            </td>
+            <td>
+                @item.birth_date.ToString("yyyy/MM/dd")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.blood)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
+
+            <td>
+                @using (@Html.BeginForm("Create", "ExaOrders", FormMethod.Post))
+                {
+                    @Html.Hidden("patient_id", item.patient_id)
+                    @Html.Hidden("id_card", item.id_card)
+                    <input type="submit" value="選擇" class="btn btn-default" />
+                }
+            </td>
+
+        </tr>
+    }
+
+</table>
+<table class="table">
+    <tr>
+        <th>
             @Html.DisplayNameFor(model => model.patient_id)
         </th>
         <th>
@@ -33,36 +91,36 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.patient_id)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.id_card)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.patient_name)
-    </td>
-    <td>
-        @item.birth_date.ToString("yyyy/MM/dd")
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.blood)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.gender)
-    </td>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.patient_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_card)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.patient_name)
+            </td>
+            <td>
+                @item.birth_date.ToString("yyyy/MM/dd")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.blood)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gender)
+            </td>
 
-    <td>
-        @using (@Html.BeginForm("Create", "ExaOrders", FormMethod.Post))
-        {
-            @Html.Hidden("patient_id", item.patient_id)
-            @Html.Hidden("id_card", item.id_card)
-            <input type="submit" value="選擇" class="btn btn-default" />
-        }
-    </td>
+            <td>
+                @using (@Html.BeginForm("Create", "ExaOrders", FormMethod.Post))
+                {
+                    @Html.Hidden("patient_id", item.patient_id)
+                    @Html.Hidden("id_card", item.id_card)
+                    <input type="submit" value="選擇" class="btn btn-default" />
+                }
+            </td>
 
-</tr>
+        </tr>
     }
 
 </table>
