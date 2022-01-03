@@ -7,47 +7,6 @@
 <h2>檢驗報告</h2>
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.exam_name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.exam_value)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.report_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExaOrders.exam_number)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.exam_name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.exam_value)
-            </td>
-            <td>
-                @item.report_date.ToString("yyyy/MM/dd")
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
-                @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
-            </td>
-        </tr>
-
-    }
-
-    <table class="table">
         <tr>
             <th>
                 @Html.DisplayName("檢驗項目")
@@ -66,27 +25,34 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.exam_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.exam_value)
-                </td>
-                <td>
-                    @item.report_date.ToString("yyyy/MM/dd")
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
-                </td>
-            </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.exam_name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.exam_value)
+    </td>
+    <td>
+        @item.report_date.ToString("yyyy/MM/dd")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
+        @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
+    </td>
+    <td>
+        @using (@Html.BeginForm("SendLine", "Reports", FormMethod.Post))
+        {
+            @Html.Hidden("test", $"https://localhost:44325/reports/Details/{item.report_id}")
+            <input type="submit" value="傳送訊息" class="btn btn-default" />
+        }
+    </td>
+</tr>
 
         }
 
     </table>
-</table>
+
