@@ -38,15 +38,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Patient.id_card)
             </td>
-
-            <td>
-                @using (@Html.BeginForm("Create", "Reports", FormMethod.Post))
-                {
-                    @Html.Hidden("exam_number", item.exam_number)
-                    @Html.Hidden("exam_id", item.exam_id)
-                    <input type="submit" value="選擇" class="btn btn-default" />
-                }
-            </td>
         </tr>
     }
 

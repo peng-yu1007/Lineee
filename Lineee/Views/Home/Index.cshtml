@@ -25,17 +25,8 @@
             URL += '&response_mode=form_post';
             window.location.href = URL;
         }
-        function message(){
-            $.post('https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec',
-                { msg: '哈囉!!!' },
-                function (e) {
-                    console.log(e);
-                });
-        }
     </script>
 </head>
 <body>
-    <button onclick="connect();"> 連結到 LineNotify 按鈕 </button>
-    <button onclick="message();"> 傳送訊息  </button>
 </body>
 </html>

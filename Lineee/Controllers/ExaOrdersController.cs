@@ -21,6 +21,11 @@ namespace Lineee.Controllers
             return View(exaOrders.ToList());
         }
 
+        public ActionResult Index1()
+        {
+            var exaOrders = db.ExaOrders.Include(e => e.Doctor).Include(e => e.Exam).Include(e => e.Patient);
+            return View(exaOrders.ToList());
+        }
         // GET: ExaOrders/Details/5
         public ActionResult Details(int? id)
         {
@@ -49,7 +54,7 @@ namespace Lineee.Controllers
         {
                 db.ExaOrders.Add(exaOrders);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index1");
             
 
         }

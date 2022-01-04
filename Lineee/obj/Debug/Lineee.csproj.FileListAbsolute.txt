@@ -275,3 +275,5 @@ C:\Users\ann02\Lineee\Lineee\obj\Debug\Lineee.pdb
 C:\Users\user\source\repos\Lineee\Lineee\bin\RestSharp.dll
 C:\Users\user\source\repos\Lineee\Lineee\bin\RestSharp.xml
 C:\Users\user\source\repos\Lineee\Lineee\obj\Debug\Lineee.csproj.CopyComplete
+C:\Users\ann02\Lineee\Lineee\bin\RestSharp.dll
+C:\Users\ann02\Lineee\Lineee\bin\RestSharp.xml
