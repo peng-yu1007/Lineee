@@ -54,7 +54,7 @@ namespace Lineee.Controllers
         {
                 db.ExaOrders.Add(exaOrders);
                 db.SaveChanges();
-                return RedirectToAction("Index1");
+                return RedirectToAction("Index", "Doctor");
             
 
         }
