@@ -154,7 +154,7 @@ namespace Lineee.Controllers
             //req.PostAsync("http://localhost:50640/api/multipart", content).Wait();
 
             var client = new RestClient("https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec");
-            client.Timeout = -1;
+            client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
             request.AddParameter("msg", path);
