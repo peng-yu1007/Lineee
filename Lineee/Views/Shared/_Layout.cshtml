@@ -8,6 +8,30 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="shortcut icon" href="img/logo.ico">
+  <style>
+      .navbar-brand {
+          float: left;
+          height: 50px;
+          padding: 7.5px 15px;
+          font-size: 18px;
+          line-height: 20px;
+      }
+      .navbar-inverse {
+          background-color: white;
+          border-color: black;
+      }
+      .nav navbar-nav{
+          color:black;
+      }
+      .abc {
+          color: black;
+          background-color: white;
+      }
+      .navbar-inverse{
+          color:black;
+      }
+  </style>
+  
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -18,19 +42,30 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="https://localhost:44325/" class="logo-img">
-                    <div>
-                        <img src="https://www.skh.org.tw/skh/img/themeImg/logo.svg" alt="新光醫院">
+                <nav class="navbar-collapse collapse">
+                    <div class="container">
+                        <a href="https://localhost:44325/" class="navbar-brand">
+                            <div>
+                                <img src="https://www.skh.org.tw/skh/img/themeImg/logo.svg" alt="新光醫院">
+                            </div>
+                        </a>
+                        <ul class="nav navbar-nav">
+                          <li>
+                            <a href="/Doctor" class="abc" style="color:black">
+                                醫生
+                            </a>
+                          </li>
+                          <li>
+                             <a href="/ExaOrders" class="abc" style="color:black">
+                                檢驗師
+                             </a>
+                          </li>
+                        </ul>
                     </div>
-                </a>
+                  </nav>
+                    </div>
+                   
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("醫師", "Index", "Doctor")</li>
-                    <li>@Html.ActionLink("檢驗師", "Index", "ExaOrders")</li>
-                </ul>
-            </div>
-        </div>
     </div>
     <div class="container body-content">
         @RenderBody()
