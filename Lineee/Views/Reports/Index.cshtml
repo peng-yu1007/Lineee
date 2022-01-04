@@ -47,7 +47,7 @@
     <td>
         @using (@Html.BeginForm("SendLine", "Reports", FormMethod.Post))
         {
-            @Html.Hidden("test", $"https://localhost:44325/reports/Details/{item.report_id}")
+            @Html.Hidden("path", $"https://localhost:44325/reports/Details/{item.report_id}")
             <input type="submit" value="傳送訊息" class="btn btn-default" />
         }
     </td>

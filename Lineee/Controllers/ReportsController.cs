@@ -135,10 +135,10 @@ namespace Lineee.Controllers
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        public ActionResult SendLine([Bind(Include = "test")] string test)
+        public ActionResult SendLine([Bind(Include = "path")] string path)
         {
 
-            var teststr = test.ToString();
+            var teststr = path.ToString();
 
             //      $.post('https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec',
             //    { msg: '哈囉!!!' },
@@ -157,7 +157,7 @@ namespace Lineee.Controllers
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", test);
+            request.AddParameter("msg", path);
             IRestResponse response = client.Execute(request);
 
             //using (var httpClient = new HttpClient())
