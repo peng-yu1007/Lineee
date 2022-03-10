@@ -162,7 +162,7 @@ namespace Lineee.Controllers
                     byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(publickey));
                     aes.Key = key;
                     aes.IV = iv;
-
+ 
                     MemoryStream ms = null;
                     CryptoStream cs = null;
                     byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
@@ -189,59 +189,46 @@ namespace Lineee.Controllers
             request.AddParameter("msg", Encrypt());
             IRestResponse response = client.Execute(request);
 
-            return RedirectToAction("Index");
-
-
-            //      $.post('https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec',
-            //    { msg: '哈囉!!!' },
-            //    function(e) {
-            //    console.log(e);
-            //});
-
-
-            //content.Add(new StringContent("key1"), "value1", "file1.txt");
-            //content.Add(new StringContent("key2"), "value2", "file2.txt");
-
-            //var req = new HttpClient();
-            //req.PostAsync("http://localhost:50640/api/multipart", content).Wait();
-
-
-
-            //using (var httpClient = new HttpClient())
-            //{
-            //    // 改Form-data
-            //    string param = JsonConvert.SerializeObject(new { msg = test });
-            //    var contentPost = new StringContent(param, Encoding.UTF8, "multipart/form-data");
-            //    var path = new Uri($"https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec");
-            //    var result = httpClient.PostAsync(path, contentPost).Result;
-
-            //    if (result != null)
-            //    {
-            //        if (!result.IsSuccessStatusCode)
-            //        {
-            //            string message = $"失敗 回應:{result.ReasonPhrase}";
-
-            //        }
-
-            //        // 200成功
-            //        if (result.StatusCode == System.Net.HttpStatusCode.OK)
-            //        {
-            //            var resultResponseJs = result.Content.ReadAsStringAsync();
-            //        }
-            //        else
-            //        {
-
-            //        }
-            //    }
-            //    else
-            //    {
-
-            //    }
-            //}
-
-            
+            return RedirectToAction("Index"); 
         }
-
+        [HttpPost]
+        public ActionResult Decrypt(string abc, Report report)
+        {
+            string Decrypt()
+            {
+                try
+                {
+                    string textToDecrypt = abc;
+                    string ToReturn = "";
+                    string publickey = "12345678";
+                    string secretkey = "87654321";
+                    byte[] privatekeyByte = { };
+                    privatekeyByte = System.Text.Encoding.UTF8.GetBytes(secretkey);
+                    byte[] publickeybyte = { };
+                    publickeybyte = System.Text.Encoding.UTF8.GetBytes(publickey);
+                    MemoryStream ms = null;
+                    CryptoStream cs = null;
+                    byte[] inputbyteArray = new byte[textToDecrypt.Replace(" ", "+").Length];
+                    inputbyteArray = Convert.FromBase64String(textToDecrypt.Replace(" ", "+"));
+                    using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
+                    {
+                        ms = new MemoryStream();
+                        cs = new CryptoStream(ms, des.CreateDecryptor(publickeybyte, privatekeyByte), CryptoStreamMode.Write);
+                        cs.Write(inputbyteArray, 0, inputbyteArray.Length);
+                        cs.FlushFinalBlock();
+                        Encoding encoding = Encoding.UTF8;
+                        ToReturn = encoding.GetString(ms.ToArray());
+                    }
+                    return ToReturn;
+                }
+                catch (Exception ae)
+                {
+                    throw new Exception(ae.Message, ae.InnerException);
+                }
+            }
+            Decrypt();
+            return RedirectToAction("Index");
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
