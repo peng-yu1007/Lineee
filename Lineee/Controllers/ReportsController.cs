@@ -11,6 +11,10 @@ using System.Web.Mvc;
 using Lineee.Models;
 using Newtonsoft.Json;
 using RestSharp;
+using System;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Lineee.Controllers
 {
@@ -135,13 +139,54 @@ namespace Lineee.Controllers
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
-        public ActionResult SendLine([Bind(Include = "path")] string path)
+
+
+
+
+        public ActionResult SendLine([Bind(Include = "path")] string path, [Bind(Include = "doctor_id")] string doctor_id)
         {
+
+            string Encrypt()
+            {
+                try
+                {   
+                    string textToEncrypt =path;
+                    string ToReturn = "";
+                    string publickey = doctor_id;
+                    string secretkey = doctor_id;
+
+                    AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
+                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                    SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
+                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(publickey));
+                    byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(publickey));
+                    aes.Key = key;
+                    aes.IV = iv;
+
+                    MemoryStream ms = null;
+                    CryptoStream cs = null;
+                    byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
+                    using (aes)
+                    {
+                        ms = new MemoryStream();
+                        cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
+                        cs.Write(inputbyteArray, 0, inputbyteArray.Length);
+                        cs.FlushFinalBlock();
+                        ToReturn = Convert.ToBase64String(ms.ToArray());
+                    }
+                    return ToReturn;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex.InnerException);
+                }
+            }
+
             var client = new RestClient("https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec");
             client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", path);
+            request.AddParameter("msg", Encrypt());
             IRestResponse response = client.Execute(request);
 
             return RedirectToAction("Index");

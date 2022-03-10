@@ -48,6 +48,7 @@
         @using (@Html.BeginForm("SendLine", "Reports", FormMethod.Post))
         {
             @Html.Hidden("path", $"https://localhost:44325/reports/Details/{item.report_id}")
+            @Html.Hidden("doctor_id", item.ExaOrders.doctor_id.ToString())
             <input type="submit" value="傳送訊息" class="btn btn-default" />
         }
     </td>
