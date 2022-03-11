@@ -11,7 +11,8 @@ namespace Lineee.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Report
     {
         public int report_id { get; set; }
@@ -23,5 +24,10 @@ namespace Lineee.Models
         public virtual ExaOrders ExaOrders { get; set; }
 
         public int exam_id { get; set; }
+
+        [Required]
+        public string key { get; set; }
+
+        public string text { get; set; }
     }
 }

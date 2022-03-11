@@ -29,6 +29,11 @@ namespace Lineee.Controllers
             return View(report.ToList());
         }
 
+        public ActionResult Secret()
+        {
+            return View("Secret");
+        }
+
         // GET: Reports/Details/5
         public ActionResult Details(int? id)
         {
@@ -58,6 +63,7 @@ namespace Lineee.Controllers
                 return RedirectToAction("Index");
 
         }
+
 
         // POST: Reports/Create
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
@@ -91,6 +97,8 @@ namespace Lineee.Controllers
             ViewBag.exam_number = new SelectList(db.ExaOrders, "exam_number", "exam_number", report.exam_number);
             return View(report);
         }
+
+
 
         // POST: Reports/Edit/5
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
@@ -158,7 +166,7 @@ namespace Lineee.Controllers
                     AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
                     MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
                     SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
-                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(publickey));
+                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(secretkey));
                     byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(publickey));
                     aes.Key = key;
                     aes.IV = iv;
@@ -229,6 +237,60 @@ namespace Lineee.Controllers
             Decrypt();
             return RedirectToAction("Index");
         }
+
+
+        [HttpPost]
+        public ActionResult Subscribe(Report report)
+        {
+            if (ModelState.IsValid)
+            {
+                string Decrypt()
+                {
+                    try
+                    {
+                        string textToDecrypt =report.text;
+                        string ToReturn = "";
+                        string publickey = report.key;
+                        string secretkey = report.key;
+
+
+                        AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
+                        MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                        SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
+                        byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(secretkey));
+                        byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(publickey));
+                        aes.Key = key;
+                        aes.IV = iv;
+
+                        MemoryStream ms = null;
+                        CryptoStream cs = null;
+                        byte[] inputbyteArray = Convert.FromBase64String(textToDecrypt);
+
+                        using (aes)
+                        {
+                            ms = new MemoryStream();
+                            cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write);
+                            cs.Write(inputbyteArray, 0, inputbyteArray.Length);
+                            cs.FlushFinalBlock();
+                           // Encoding encoding = Encoding.UTF8;
+                            ToReturn = Convert.ToBase64String(ms.ToArray());
+                            
+
+                        }
+                        return ToReturn;
+                    }
+                    catch (Exception ae)
+                    {
+                        throw new Exception(ae.Message, ae.InnerException);
+                    }
+                }
+                Decrypt();
+            }
+
+            return View("Secret");
+        }
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
