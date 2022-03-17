@@ -56,9 +56,10 @@ namespace Lineee.Controllers
             return View();
         }
 
-        public ActionResult CreateSave([Bind(Include = "report_id,exam_number,exam_name,exam_details,exam_value,report_date")] Report report)
+        public ActionResult CreateSave([Bind(Include = "report_id,exam_number,exam_name,exam_details,exam_value,report_date,key,text")] Report report)
         {
                 db.Report.Add(report);
+                
                 db.SaveChanges();
                 return RedirectToAction("Index");
 
