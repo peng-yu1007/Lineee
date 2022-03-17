@@ -159,36 +159,36 @@ namespace Lineee.Controllers
                 try
                 {   
                     string textToEncrypt =path;
-                    string ToReturn = "";
-                    string publickey = doctor_id;
-                    string secretkey = doctor_id;
+                    string CryptoKey = doctor_id;
+                    string encrypt = "";
+
 
                     AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
                     MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
                     SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
-                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(secretkey));
-                    byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(publickey));
+                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
+                    byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
                     aes.Key = key;
                     aes.IV = iv;
- 
-                    MemoryStream ms = null;
-                    CryptoStream cs = null;
-                    byte[] inputbyteArray = System.Text.Encoding.UTF8.GetBytes(textToEncrypt);
-                    using (aes)
+
+                    byte[] dataByteArray = Encoding.UTF8.GetBytes(textToEncrypt);
+                    using (MemoryStream ms = new MemoryStream())
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
                     {
-                        ms = new MemoryStream();
-                        cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
-                        cs.Write(inputbyteArray, 0, inputbyteArray.Length);
+                        cs.Write(dataByteArray, 0, dataByteArray.Length);
                         cs.FlushFinalBlock();
-                        ToReturn = Convert.ToBase64String(ms.ToArray());
+                        encrypt = Convert.ToBase64String(ms.ToArray());
+                        return encrypt;
                     }
-                    return ToReturn;
+                    
                 }
                 catch (Exception ex)
                 {
                     throw new Exception(ex.Message, ex.InnerException);
                 }
+                
             }
+            Encrypt();
 
             var client = new RestClient("https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec");
             client.Timeout = 5000;
@@ -199,48 +199,11 @@ namespace Lineee.Controllers
 
             return RedirectToAction("Index"); 
         }
-        [HttpPost]
-        public ActionResult Decrypt(string abc, Report report)
-        {
-            string Decrypt()
-            {
-                try
-                {
-                    string textToDecrypt = abc;
-                    string ToReturn = "";
-                    string publickey = "12345678";
-                    string secretkey = "87654321";
-                    byte[] privatekeyByte = { };
-                    privatekeyByte = System.Text.Encoding.UTF8.GetBytes(secretkey);
-                    byte[] publickeybyte = { };
-                    publickeybyte = System.Text.Encoding.UTF8.GetBytes(publickey);
-                    MemoryStream ms = null;
-                    CryptoStream cs = null;
-                    byte[] inputbyteArray = new byte[textToDecrypt.Replace(" ", "+").Length];
-                    inputbyteArray = Convert.FromBase64String(textToDecrypt.Replace(" ", "+"));
-                    using (DESCryptoServiceProvider des = new DESCryptoServiceProvider())
-                    {
-                        ms = new MemoryStream();
-                        cs = new CryptoStream(ms, des.CreateDecryptor(publickeybyte, privatekeyByte), CryptoStreamMode.Write);
-                        cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                        cs.FlushFinalBlock();
-                        Encoding encoding = Encoding.UTF8;
-                        ToReturn = encoding.GetString(ms.ToArray());
-                    }
-                    return ToReturn;
-                }
-                catch (Exception ae)
-                {
-                    throw new Exception(ae.Message, ae.InnerException);
-                }
-            }
-            Decrypt();
-            return RedirectToAction("Index");
-        }
+
 
 
         [HttpPost]
-        public ActionResult Subscribe(Report report)
+        public ActionResult Decrypt(Report report)
         {
             if (ModelState.IsValid)
             {
@@ -249,42 +212,35 @@ namespace Lineee.Controllers
                     try
                     {
                         string textToDecrypt =report.text;
-                        string ToReturn = "";
-                        string publickey = report.key;
-                        string secretkey = report.key;
-
+                        string CryptoKey = report.key;
+                        string decrypt = "";
 
                         AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
                         MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
                         SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
-                        byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(secretkey));
-                        byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(publickey));
+                        byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
+                        byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
                         aes.Key = key;
                         aes.IV = iv;
 
-                        MemoryStream ms = null;
-                        CryptoStream cs = null;
-                        byte[] inputbyteArray = Convert.FromBase64String(textToDecrypt);
-
-                        using (aes)
+                        byte[] dataByteArray = Convert.FromBase64String(textToDecrypt);
+                        using (MemoryStream ms = new MemoryStream())  
                         {
-                            ms = new MemoryStream();
-                            cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write);
-                            cs.Write(inputbyteArray, 0, inputbyteArray.Length);
-                            cs.FlushFinalBlock();
-                           // Encoding encoding = Encoding.UTF8;
-                            ToReturn = Convert.ToBase64String(ms.ToArray());
-                            
-
+                            using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                            {
+                                cs.Write(dataByteArray, 0, dataByteArray.Length);
+                                cs.FlushFinalBlock();
+                                decrypt = Encoding.UTF8.GetString(ms.ToArray());
+                                return decrypt;
+                            }
                         }
-                        return ToReturn;
                     }
-                    catch (Exception ae)
+                    catch (Exception e)
                     {
-                        throw new Exception(ae.Message, ae.InnerException);
+                        throw new Exception(e.Message, e.InnerException);
                     }
-                }
-                Decrypt();
+                   
+                }  Decrypt();
             }
 
             return View("Secret");
