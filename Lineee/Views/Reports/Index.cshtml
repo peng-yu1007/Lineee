@@ -41,7 +41,17 @@
     </td>
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
+
         @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
+
+        @using (@Html.BeginForm("Details", "Reports", FormMethod.Get))
+        {   
+            @Html.Hidden("path", $"https://localhost:44325/reports/Details/{item.report_id}")
+            @Html.Hidden("doctor_id", item.ExaOrders.doctor_id.ToString())
+            @Html.Hidden("report_id", item.report_id.ToString())
+            <input type="submit" value="Details" class="btn btn-default" />
+        }|
+
         @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
     </td>
     <td>
@@ -49,6 +59,7 @@
         {
             @Html.Hidden("path", $"https://localhost:44325/reports/Details/{item.report_id}")
             @Html.Hidden("doctor_id", item.ExaOrders.doctor_id.ToString())
+            @Html.Hidden("report_id", item.report_id.ToString())
             <input type="submit" value="傳送訊息" class="btn btn-default" />
         }
     </td>

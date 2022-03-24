@@ -25,7 +25,6 @@ namespace Lineee.Models
 
         public int exam_id { get; set; }
 
-        //[Required]
         public string key { get; set; }
 
         public string text { get; set; }

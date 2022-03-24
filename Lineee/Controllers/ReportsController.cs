@@ -35,6 +35,7 @@ namespace Lineee.Controllers
         }
 
         // GET: Reports/Details/5
+        //[HttpGet("{id}")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -49,6 +50,96 @@ namespace Lineee.Controllers
             return View(report);
         }
 
+       // [HttpGet("{String}")]
+        public ActionResult Details1([Bind(Include = "doctor_id")] string doctor_id, [Bind(Include = "report_id")] string report_id)
+        {
+            if (report_id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+
+            string Encrypt()
+            {
+                try
+                {
+                    string textToEncrypt = report_id;
+                    string CryptoKey = doctor_id;
+                    string encrypt = "";
+
+
+                    AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
+                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                    SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
+                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
+                    byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
+                    aes.Key = key;
+                    aes.IV = iv;
+
+                    byte[] dataByteArray = Encoding.UTF8.GetBytes(textToEncrypt);
+                    using (MemoryStream ms = new MemoryStream())
+                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(dataByteArray, 0, dataByteArray.Length);
+                        cs.FlushFinalBlock();
+                        encrypt = Convert.ToBase64String(ms.ToArray());
+                        //return encrypt;
+                    }
+                    return encrypt;
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(ex.Message, ex.InnerException);
+                }
+
+            }
+            ViewBag.encrypt_text = Encrypt();
+
+
+            string Decrypt()
+            {
+                try
+                {
+                    string textToDecrypt = Encrypt();
+                    string CryptoKey = doctor_id;
+                    string decrypt = "";
+
+                    AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
+                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
+                    SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
+                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
+                    byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
+                    aes.Key = key;
+                    aes.IV = iv;
+
+                    byte[] dataByteArray = Convert.FromBase64String(textToDecrypt);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(dataByteArray, 0, dataByteArray.Length);
+                            cs.FlushFinalBlock();
+                            decrypt = Encoding.UTF8.GetString(ms.ToArray());
+                            return decrypt;
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message, e.InnerException);
+                }
+
+            }
+            int decript_id = int.Parse(Decrypt());
+            Report report = db.Report.Find(decript_id);
+            if (report == null)
+            {
+                return HttpNotFound();
+            }
+            return View(report);
+        }
+
+
         // GET: Reports/Create
         public ActionResult Create(String exam_number)
         {
@@ -59,7 +150,6 @@ namespace Lineee.Controllers
         public ActionResult CreateSave([Bind(Include = "report_id,exam_number,exam_name,exam_details,exam_value,report_date,key,text")] Report report)
         {
                 db.Report.Add(report);
-                
                 db.SaveChanges();
                 return RedirectToAction("Index");
 
@@ -152,14 +242,14 @@ namespace Lineee.Controllers
 
 
 
-        public ActionResult SendLine([Bind(Include = "path")] string path, [Bind(Include = "doctor_id")] string doctor_id)
+        public ActionResult SendLine([Bind(Include = "path")] string path, [Bind(Include = "doctor_id")] string doctor_id, [Bind(Include = "report_id")] string report_id)
         {
 
             string Encrypt()
             {
                 try
                 {   
-                    string textToEncrypt =path;
+                    string textToEncrypt = report_id;
                     string CryptoKey = doctor_id;
                     string encrypt = "";
 
@@ -179,9 +269,9 @@ namespace Lineee.Controllers
                         cs.Write(dataByteArray, 0, dataByteArray.Length);
                         cs.FlushFinalBlock();
                         encrypt = Convert.ToBase64String(ms.ToArray());
-                        return encrypt;
+                        //return encrypt;
                     }
-                    
+                    return encrypt;
                 }
                 catch (Exception ex)
                 {
@@ -189,13 +279,15 @@ namespace Lineee.Controllers
                 }
                 
             }
-            Encrypt();
+            ViewBag.encrypt_text = Encrypt();
+
+            //Encrypt();
 
             var client = new RestClient("https://script.google.com/macros/s/AKfycbyB2u5E72rhN3YcBzjDravC7wgMp1M-DK1ZYpoIkt10jAKafj-rZ-t7tAB8TXsr4TM/exec");
             client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", Encrypt());
+            request.AddParameter("msg", "https://localhost:44325/reports/Details/"+Encrypt());
             IRestResponse response = client.Execute(request);
 
             return RedirectToAction("Index"); 
