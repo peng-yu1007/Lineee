@@ -287,7 +287,7 @@ namespace Lineee.Controllers
             client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", "https://localhost:44325/reports/Details/"+Encrypt());
+            request.AddParameter("msg", "https://localhost:44325/reports/Details?test="+Encrypt());
             IRestResponse response = client.Execute(request);
 
             return RedirectToAction("Index"); 
