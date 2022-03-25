@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<br>
+    <img src="https://i.imgur.com/NOVwjOh.png" alt="封面" style="display:block;margin:auto"/>
+
+
+<!DOCTYPE html>
+<html lang="tw">
+<head>
+    <script type=”text/javascript” src=”http://code.jquery.com/jquery-latest.min.js”></script>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        function connect() {
+            var URL = 'https://notify-bot.line.me/oauth/authorize?';
+            URL += 'response_type=code';
+            URL += '&client_id=6bDII4Bu94ODwiP3yy35YR';
+            URL += '&redirect_uri=https://localhost:44325/';
+            URL += '&scope=notify';
+            URL += '&state=NO_STATE';
+            URL += '&response_mode=form_post';
+            window.location.href = URL;
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

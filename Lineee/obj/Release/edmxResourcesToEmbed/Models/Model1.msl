@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LineNotify1ModelStoreContainer" CdmEntityContainer="LineNotify1Entities">
+    <EntitySetMapping Name="Details">
+      <EntityTypeMapping TypeName="LineNotify1Model.Details">
+        <MappingFragment StoreEntitySet="Details">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+          <ScalarProperty Name="exam_name" ColumnName="exam_name" />
+          <ScalarProperty Name="exam_details" ColumnName="exam_details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctor">
+      <EntityTypeMapping TypeName="LineNotify1Model.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+          <ScalarProperty Name="doctor_name" ColumnName="doctor_name" />
+          <ScalarProperty Name="division" ColumnName="division" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Exam">
+      <EntityTypeMapping TypeName="LineNotify1Model.Exam">
+        <MappingFragment StoreEntitySet="Exam">
+          <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+          <ScalarProperty Name="exam_name" ColumnName="exam_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExaOrderDetails">
+      <EntityTypeMapping TypeName="LineNotify1Model.ExaOrderDetails">
+        <MappingFragment StoreEntitySet="ExaOrderDetails">
+          <ScalarProperty Name="details_id" ColumnName="details_id" />
+          <ScalarProperty Name="exam_number" ColumnName="exam_number" />
+          <ScalarProperty Name="exam_details" ColumnName="exam_details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExaOrders">
+      <EntityTypeMapping TypeName="LineNotify1Model.ExaOrders">
+        <MappingFragment StoreEntitySet="ExaOrders">
+          <ScalarProperty Name="exam_number" ColumnName="exam_number" />
+          <ScalarProperty Name="exam_id" ColumnName="exam_id" />
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="doctor_id" ColumnName="doctor_id" />
+          <ScalarProperty Name="order_date" ColumnName="order_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patient">
+      <EntityTypeMapping TypeName="LineNotify1Model.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="patient_id" ColumnName="patient_id" />
+          <ScalarProperty Name="id_card" ColumnName="id_card" />
+          <ScalarProperty Name="patient_name" ColumnName="patient_name" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+          <ScalarProperty Name="blood" ColumnName="blood" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Report">
+      <EntityTypeMapping TypeName="LineNotify1Model.Report">
+        <MappingFragment StoreEntitySet="Report">
+          <ScalarProperty Name="report_id" ColumnName="report_id" />
+          <ScalarProperty Name="exam_number" ColumnName="exam_number" />
+          <ScalarProperty Name="exam_name" ColumnName="exam_name" />
+          <ScalarProperty Name="exam_value" ColumnName="exam_value" />
+          <ScalarProperty Name="report_date" ColumnName="report_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

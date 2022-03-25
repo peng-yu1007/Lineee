@@ -51,9 +51,11 @@ namespace Lineee.Controllers
         }
 
        // [HttpGet("{String}")]
-        public ActionResult Details1([Bind(Include = "doctor_id")] string doctor_id, [Bind(Include = "report_id")] string report_id)
+        public ActionResult Details1([Bind(Include = "doctor_id")] string doctor_id, string test)
         {
-            if (report_id == null)
+            test = Request.QueryString["test"];
+
+            if (test == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -63,8 +65,8 @@ namespace Lineee.Controllers
             {
                 try
                 {
-                    string textToEncrypt = report_id;
-                    string CryptoKey = doctor_id;
+                    string textToEncrypt = test;
+                    string CryptoKey = ("22001");
                     string encrypt = "";
 
 

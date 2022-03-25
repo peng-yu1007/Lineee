@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Lineee.Models.Report>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>檢驗報告</h2>
+
+<table class="table table-striped table-primary">
+    <tr>
+        <th>
+            @Html.DisplayName("檢驗單號")
+        </th>
+        <th>
+            @Html.DisplayName("檢驗項目")
+        </th>
+        <th>
+            @Html.DisplayName("檢驗值")
+        </th>
+        <th>
+            @Html.DisplayName("報告日期")
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+
+        @foreach (var item in Model)
+        {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.exam_name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.exam_value)
+    </td>
+    <td>
+        @item.report_date.ToString("yyyy/MM/dd")
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
+
+        @Html.ActionLink("Details", "Details", new { id = item.report_id }) |
+
+        @using (@Html.BeginForm("Details", "Reports", FormMethod.Get))
+        {   
+            @Html.Hidden("path", $"https://localhost:44325/reports/Details/{item.report_id}")
+            @Html.Hidden("doctor_id", item.ExaOrders.doctor_id.ToString())
+            @Html.Hidden("report_id", item.report_id.ToString())
+            <input type="submit" value="Details" class="btn btn-default" />
+        }|
+
+        @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
+    </td>
+    <td>
+        @using (@Html.BeginForm("SendLine", "Reports", FormMethod.Post))
+        {
+            @Html.Hidden("path", $"https://localhost:44325/reports/Details/{item.report_id}")
+            @Html.Hidden("doctor_id", item.ExaOrders.doctor_id.ToString())
+            @Html.Hidden("report_id", item.report_id.ToString())
+            <input type="submit" value="傳送訊息" class="btn btn-default" />
+        }
+    </td>
+</tr>
+
+        }
+
+    </table>
+<script>
+
+
+</script>
+

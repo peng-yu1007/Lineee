@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3eca992bacf4f4a8d3249a1e1853b34" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="LineNotify1Model.Details" Width="1.5" PointX="3" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LineNotify1Model.Doctor" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LineNotify1Model.Exam" Width="1.5" PointX="0.75" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LineNotify1Model.ExaOrderDetails" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LineNotify1Model.ExaOrders" Width="1.5" PointX="6" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LineNotify1Model.Patient" Width="1.5" PointX="3.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LineNotify1Model.Report" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <AssociationConnector Association="LineNotify1Model.FK_檢驗細項索引檔_檢驗項目索引檔" ManuallyRouted="false" />
+        <AssociationConnector Association="LineNotify1Model.FK_檢驗單號_醫師索引檔" ManuallyRouted="false" />
+        <AssociationConnector Association="LineNotify1Model.FK_檢驗單號_檢驗項目索引檔" ManuallyRouted="false" />
+        <AssociationConnector Association="LineNotify1Model.FK_檢驗單細項_檢驗單號" ManuallyRouted="false" />
+        <AssociationConnector Association="LineNotify1Model.FK_檢驗單號_病人索引檔" ManuallyRouted="false" />
+        <AssociationConnector Association="LineNotify1Model.FK_檢驗報告_檢驗單號" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
