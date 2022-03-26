@@ -36,7 +36,7 @@ namespace Lineee.Controllers
 
         // GET: Reports/Details/5
         //[HttpGet("{id}")]
-        public ActionResult Details(int? id)
+        public ActionResult Details1(int? id)
         {
             if (id == null)
             {
@@ -51,7 +51,7 @@ namespace Lineee.Controllers
         }
 
        // [HttpGet("{String}")]
-        public ActionResult Details1([Bind(Include = "doctor_id")] string doctor_id, string test)
+        public ActionResult Details([Bind(Include = "doctor_id")] string doctor_id, string test)
         {
             test = Request.QueryString["test"];
 
@@ -61,49 +61,12 @@ namespace Lineee.Controllers
             }
 
 
-            string Encrypt()
-            {
-                try
-                {
-                    string textToEncrypt = test;
-                    string CryptoKey = ("22001");
-                    string encrypt = "";
-
-
-                    AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
-                    MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
-                    SHA256CryptoServiceProvider sha256 = new SHA256CryptoServiceProvider();
-                    byte[] key = sha256.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
-                    byte[] iv = md5.ComputeHash(Encoding.UTF8.GetBytes(CryptoKey));
-                    aes.Key = key;
-                    aes.IV = iv;
-
-                    byte[] dataByteArray = Encoding.UTF8.GetBytes(textToEncrypt);
-                    using (MemoryStream ms = new MemoryStream())
-                    using (CryptoStream cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(dataByteArray, 0, dataByteArray.Length);
-                        cs.FlushFinalBlock();
-                        encrypt = Convert.ToBase64String(ms.ToArray());
-                        //return encrypt;
-                    }
-                    return encrypt;
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(ex.Message, ex.InnerException);
-                }
-
-            }
-            ViewBag.encrypt_text = Encrypt();
-
-
             string Decrypt()
             {
                 try
                 {
-                    string textToDecrypt = Encrypt();
-                    string CryptoKey = doctor_id;
+                    string textToDecrypt = test;
+                    string CryptoKey = ("22001");
                     string decrypt = "";
 
                     AesCryptoServiceProvider aes = new AesCryptoServiceProvider();
