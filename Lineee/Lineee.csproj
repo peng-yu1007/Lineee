@@ -242,6 +242,7 @@
     <Content Include="Views\Reports\Index.cshtml" />
     <Content Include="Views\ExaOrders\Index1.cshtml" />
     <Content Include="Views\Reports\Secret.cshtml" />
+    <Content Include="Views\Reports\Details1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

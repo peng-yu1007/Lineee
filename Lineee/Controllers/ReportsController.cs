@@ -34,7 +34,8 @@ namespace Lineee.Controllers
             return View("Secret");
         }
 
-        // GET: Reports/Details/5
+        //GET: Reports/Details/5
+
         //[HttpGet("{id}")]
         public ActionResult Details1(int? id)
         {
@@ -48,12 +49,14 @@ namespace Lineee.Controllers
                 return HttpNotFound();
             }
             return View(report);
+
         }
 
-       // [HttpGet("{String}")]
-        public ActionResult Details([Bind(Include = "doctor_id")] string doctor_id, string test)
+        //[HttpGet("{test}")]
+        public ActionResult Details(string test)
         {
             test = Request.QueryString["test"];
+
 
             if (test == null)
             {
@@ -96,12 +99,17 @@ namespace Lineee.Controllers
 
             }
             int decript_id = int.Parse(Decrypt());
+
+
             Report report = db.Report.Find(decript_id);
+
+
             if (report == null)
             {
                 return HttpNotFound();
             }
             return View(report);
+
         }
 
 
@@ -124,6 +132,7 @@ namespace Lineee.Controllers
         // POST: Reports/Create
         // 若要免於大量指派 (overposting) 攻擊，請啟用您要繫結的特定屬性，
         // 如需詳細資料，請參閱 https://go.microsoft.com/fwlink/?LinkId=317598。
+
         [HttpPost]
         public ActionResult Create([Bind(Include = "report_id,exam_number,exam_name,exam_details,exam_value,report_date,exam_id")] Report report)
         {
@@ -252,7 +261,7 @@ namespace Lineee.Controllers
             client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", "https://localhost:44325/reports/Details?test="+Encrypt());
+            request.AddParameter("msg", "http://www.lineee.somee.com/reports/Details?test=" + Encrypt());
             IRestResponse response = client.Execute(request);
 
             return RedirectToAction("Index"); 
