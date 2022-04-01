@@ -261,7 +261,7 @@ namespace Lineee.Controllers
             client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", "http://www.lineee.somee.com/reports/Details?test=" + Encrypt());
+            request.AddParameter("msg", "https://lineeeeee.azurewebsites.net/reports/Details?test=" + Encrypt());
             IRestResponse response = client.Execute(request);
 
             return RedirectToAction("Index"); 
