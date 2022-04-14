@@ -55,8 +55,8 @@ namespace Lineee.Controllers
         //[HttpGet("{test}")]
         public ActionResult Details(string test)
         {
-            test = Request.QueryString["test"];
-
+            string test1 = Request.QueryString["test"];
+            test = test1.Replace(' ', '+');
 
             if (test == null)
             {

@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="LineNotify1Entities-Web.config Connection String" description="LineNotify1Entities 應用程式在 web.config 中用來存取資料庫的連接字串。" defaultValue="metadata=res://*/Models.Model1.csdl|res://*/Models.Model1.ssdl|res://*/Models.Model1.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=114.34.133.173;initial catalog=LineNotify1;user id=FJU;password=FJU;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\user\\Lineee\\Lineee\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LineNotify1Entities']/@connectionString" />
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\ann02\\Lineee\\Lineee\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='LineNotify1Entities']/@connectionString" />
   </parameter>
 </parameters>

@@ -6,6 +6,10 @@
 
 <h2>檢驗報告</h2>
 
+
+
+
+
 <table class="table table-striped table-primary">
     <tr>
         <th>
@@ -24,8 +28,63 @@
         <th></th>
     </tr>
 
-        @foreach (var item in Model)
+    @foreach (var item in Model)
+    {
+
+        double low_value =0;
+        double high_value = 0;
+        var value_color = "black";
+
+        if(item.ExaOrders.exam_id == 3011)
         {
+            low_value = 150;
+            high_value = 378;
+        }
+        else if(item.ExaOrders.exam_id == 3012)
+        {
+            low_value = 3.25;
+            high_value = 9.16;
+        }
+        else if(item.ExaOrders.exam_id == 3013)
+        {
+            low_value = 80.9;
+            high_value = 99.3;
+        }
+        else if (item.ExaOrders.exam_id == 3021)
+        {
+            low_value = 1.003;
+            high_value = 1.035;
+        }
+        else if (item.ExaOrders.exam_id == 3022)
+        {
+            low_value = 5.0;
+            high_value = 8.0;
+        }
+        else if (item.ExaOrders.exam_id == 3023)
+        {
+            high_value = 1.5;
+        }
+        else if (item.ExaOrders.exam_id == 3031)
+        {
+            low_value = 70;
+            high_value = 100;
+        }
+        else if (item.ExaOrders.exam_id == 3032)
+        {
+            low_value = 4.0;
+            high_value = 6.0;
+        }
+        else if (item.ExaOrders.exam_id == 3033)
+        {
+            high_value = 28.8;
+        }
+
+
+        if (double.Parse(item.exam_value) > high_value|| double.Parse(item.exam_value) < low_value)
+        {
+            value_color = "red";
+        }
+
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.ExaOrders.exam_number)
@@ -33,7 +92,8 @@
     <td>
         @Html.DisplayFor(modelItem => item.exam_name)
     </td>
-    <td>
+
+    <td style="color:@value_color;">
         @Html.DisplayFor(modelItem => item.exam_value)
     </td>
     <td>
@@ -64,5 +124,5 @@
         var getUrlString = location.href;
         var url = new URL(getUrlString);
         url.searchParams.get('test')
-</script>
+        </script>
 
