@@ -10,6 +10,65 @@
     <h4>Report</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        @{
+
+            double low_value = 0;
+            double high_value = 0;
+            var value_color = "black";
+
+            if (Model.ExaOrders.exam_id == 3011)
+            {
+                low_value = 150;
+                high_value = 378;
+            }
+            else if (Model.ExaOrders.exam_id == 3012)
+            {
+                low_value = 3.25;
+                high_value = 9.16;
+            }
+            else if (Model.ExaOrders.exam_id == 3013)
+            {
+                low_value = 80.9;
+                high_value = 99.3;
+            }
+            else if (Model.ExaOrders.exam_id == 3021)
+            {
+                low_value = 1.003;
+                high_value = 1.035;
+            }
+            else if (Model.ExaOrders.exam_id == 3022)
+            {
+                low_value = 5.0;
+                high_value = 8.0;
+            }
+            else if (Model.ExaOrders.exam_id == 3023)
+            {
+                high_value = 1.5;
+            }
+            else if (Model.ExaOrders.exam_id == 3031)
+            {
+                low_value = 70;
+                high_value = 100;
+            }
+            else if (Model.ExaOrders.exam_id == 3032)
+            {
+                low_value = 4.0;
+                high_value = 6.0;
+            }
+            else if (Model.ExaOrders.exam_id == 3033)
+            {
+                high_value = 28.8;
+            }
+
+
+            if (double.Parse(Model.exam_value) > high_value || double.Parse(Model.exam_value) < low_value)
+            {
+                value_color = "red";
+            }
+        }
+
+
         <dt>
             @Html.DisplayName("檢驗項目")
         </dt>
@@ -22,7 +81,7 @@
             @Html.DisplayName("檢驗值")
         </dt>
 
-        <dd>
+        <dd style="color:@value_color;">
             @Html.DisplayFor(model => model.exam_value)
         </dd>
 
