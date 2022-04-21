@@ -2,7 +2,30 @@
     ViewBag.Title = "Home Page";
 }
 <br>
-    <img src="https://i.imgur.com/NOVwjOh.png" alt="封面" style="display:block;margin:auto"/>
+@*<img src="https://i.imgur.com/NOVwjOh.png" alt="封面" style="display:block;margin:auto"/>*@
+
+<script language=javascript>
+    var curIndex = 0;
+    //時間間隔 單位毫秒
+    var timeInterval = 3000;
+    var arr = new Array();
+    arr[0] = "https://i.imgur.com/NOVwjOh.png"
+    arr[1] = "https://i.imgur.com/pbghcEE.jpg";
+    arr[2] = "https://i.imgur.com/SMAk0F0.jpg";
+    setInterval(changeImg, timeInterval);
+    function changeImg() {
+        var obj = document.getElementById("obj");
+        if (curIndex == arr.length - 1) {
+            curIndex = 0;
+        }
+        else {
+            curIndex += 1;
+        }
+        obj.src = arr[curIndex];
+    }
+</script>
+<img id=obj style="display:block;margin:auto" src="https://i.imgur.com/NOVwjOh.png" border=0 />
+
 
 
 <!DOCTYPE html>
