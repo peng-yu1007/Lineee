@@ -22,6 +22,12 @@
             @Html.DisplayName("檢驗值")
         </th>
         <th>
+            @Html.DisplayName("臨界值下限")
+        </th>
+        <th>
+            @Html.DisplayName("臨界值上限")
+        </th>
+        <th>
             @Html.DisplayName("報告日期")
         </th>
         <th></th>
@@ -95,6 +101,12 @@
 
     <td style="color:@value_color;">
         @Html.DisplayFor(modelItem => item.exam_value)
+    </td>
+    <td>
+        @low_value
+    </td>
+    <td>
+        @high_value
     </td>
     <td>
         @item.report_date.ToString("yyyy/MM/dd")
