@@ -4,47 +4,266 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+@{
 
-<div>
-    <h4>Report</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayName("檢驗項目")
-        </dt>
+    double low_value = 0;
+    double high_value = 0;
+    var value_color = "black";
 
-        <dd>
-            @Html.DisplayFor(model => model.exam_name)
-        </dd>
+    if (Model.ExaOrders.exam_id == 3011)
+    {
+        low_value = 150;
+        high_value = 378;
+    }
+    else if (Model.ExaOrders.exam_id == 3012)
+    {
+        low_value = 3.25;
+        high_value = 9.16;
+    }
+    else if (Model.ExaOrders.exam_id == 3013)
+    {
+        low_value = 80.9;
+        high_value = 99.3;
+    }
+    else if (Model.ExaOrders.exam_id == 3021)
+    {
+        low_value = 1.003;
+        high_value = 1.035;
+    }
+    else if (Model.ExaOrders.exam_id == 3022)
+    {
+        low_value = 5.0;
+        high_value = 8.0;
+    }
+    else if (Model.ExaOrders.exam_id == 3023)
+    {
+        high_value = 1.5;
+    }
+    else if (Model.ExaOrders.exam_id == 3031)
+    {
+        low_value = 70;
+        high_value = 100;
+    }
+    else if (Model.ExaOrders.exam_id == 3032)
+    {
+        low_value = 4.0;
+        high_value = 6.0;
+    }
+    else if (Model.ExaOrders.exam_id == 3033)
+    {
+        high_value = 28.8;
+    }
 
-        <dt>
-            @Html.DisplayName("檢驗值")
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.exam_value)
-        </dd>
+    if (double.Parse(Model.exam_value) > high_value || double.Parse(Model.exam_value) < low_value)
+    {
+        value_color = "red";
+    }
+}
 
-        <dt>
-            @Html.DisplayName("報告日期")
-        </dt>
+<!DOCTYPE html>
+<?xml version="1.0" encoding="utf-8" ?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:cdp="http://www.hl7.org.tw/EMR/CDocumentPayload/v1.0" xmlns:n1="urn:hl7-org:v3" xmlns:n2="urn:hl7-org:v3/meta/voc" xmlns:n3="http://www.w3.org/1999/xhtml" xmlns:voc="urn:hl7-org:v3/voc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <xsl:output method="html" indent="yes" version="4.01" encoding="utf-8" doctype-public="-//W3C//DTD HTML 4.01//EN" />
+    <xsl:template match="/">
+        <xsl:apply-templates select="//n1:ClinicalDocument" />
+    </xsl:template>
+    <xsl:template match="//n1:ClinicalDocument">
 
-        <dd>
-            @Convert.ToDateTime(Model.report_date).ToString("yyyy/MM/dd")
-        </dd>
+        <style type="text/css">
+            .TitleFonts {
+                font-family: Arial,DFKai-sb;
+                font-size: x-large;
+            }
 
-        <dt>
-            @Html.DisplayName("檢驗單號")
-        </dt>
+            .pre-style {
+                font-family: Arial,DFKai-sb Helvetica, sans-serif, Courier New, Verdana;
+                <!-- text-align: left; -->
+                font-size: 16px;
+                font-weight: normal;
+                /*  <!-- vertical-algin: middle; -->*/
+                white-space: pre-wrap;
+                /*word-break: break-all;*/
+                word-wrap: break-word;
+                /* white-space: moz-pre-wrap;*/
+            }
 
-        <dd>
-            @Html.DisplayFor(model => model.ExaOrders.exam_number)
-        </dd>
+            .SubTitleFont {
+                font-family: DFKai-sb;
+                font-size: 18px;
+                font-weight: bolder;
+                margin-left: 3px;
+                margin-top: 15px;
+                margin-bottom: 15px;
+                text-align: center;
+                height: 35px;
+            }
 
-    </dl>
-</div>
+            .ClsFontB {
+                font-family: DFKai-sb;
+                font-size: 17px;
+            }
 
+            .column {
+                text-align: center;
+                font-weight: 700;
+            }
+
+            .InnerTD {
+                <!-- border: 2px double black; -->
+            }
+
+            .pre-style {
+                font-family: Arial,DFKai-sb, Helvetica, sans-serif, Courier New, Verdana;
+                <!-- text-align: left; -->
+                font-size: 16px;
+                font-weight: normal;
+                /*<!-- vertical-algin: middle; -->*/
+                white-space: pre-wrap;
+                /*word-break: break-all;*/
+                word-wrap: break-word;
+            }
+
+            .Ddiv {
+                table-layout: fixed;
+                word-break: break-all;
+                width: 740px;
+                max-width: 740px;
+            }
+        </style>
+        <html>
+        <body>
+            <header>
+                <!--/////////////////////////////////////////////////////////////////-->
+                <div style="width:740px; margin: 0 auto;max-width:740px;">
+                    <table style="width: 720px; font-family: Arial,DFKai-sb;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <table style="width: 100%; height: 100px; font-size: 16px;" border="0" cellspacing="0">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="8" align="center" height="50" style="font-size:20px;font-weight:bold;">
+                                                    檢驗報告
+                                                </td>
+                                            </tr>
+                            </tr>
+                            <tr>
+                                <td width="115px" class="column">診斷醫師:</td>
+                                <td width="115px">
+                                    @ViewBag.ep
+                                </td>
+                                <td width="115px" class="column">報告日期:</td>
+                                <td>
+                                    @ViewBag.dp
+                                </td>
+                                <td width="115px" class="column">病歷號碼:</td>
+                                <td width="115px">
+                                    @ViewBag.ap
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </td>
+                    </tr>
+    <tr>
+        <td></td>
+    </tr>
+    </tbody>
+    </table>
+    </div>
+    <!-- 表頭 end -->
+    </header>
+    <Content>
+        <div style="width:740px; margin: 0 auto;max-width:740px;" class="Ddiv">
+            <!--病人生活史 end-->
+            <table border="1" cellpadding="1" cellspacing="1" width="100%" style=" font-family: Arial,DFKai-sb;">
+                <tbody>
+                    <tr>
+                        <td colspan="6" class="SubTitleFont">
+                            <strong>
+                                <xsl:text>病人基本資料</xsl:text>
+                            </strong>
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td class="column">
+                            <span>
+                                <xsl:text>病歷號</xsl:text>
+                            </span>
+                        </td>
+                        <td>
+                            @ViewBag.ap
+                        </td>
+                        <td class="column">
+                            <span>
+                                <xsl:text>姓名</xsl:text>
+                            </span>
+                        </td>
+                        <td align="center">
+                            @ViewBag.bp
+                        </td>
+                        <td class="column">
+                            <span>
+                                <xsl:text>出生日期</xsl:text>
+                            </span>
+                        </td>
+                        <td align="center">
+                            @ViewBag.fp
+                        </td>
+                    </tr>
+                    <tr align="center">
+                        <td class="column">
+                            <span>
+                                <xsl:text>性別</xsl:text>
+                            </span>
+                        </td>
+                        <td align="center">
+                            @ViewBag.cp
+                        </td>
+                        <td class="column">
+                            <span>
+                                <xsl:text>身分證號</xsl:text>
+                            </span>
+                        </td>
+                        <td align="center" style="text-transform:uppercase;">
+                            @ViewBag.jp
+                        </td>
+                        <td class="column">血型</td>
+                        <td colspan="3" style="text-transform:uppercase;">
+                            @ViewBag.gp
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table border="1" cellpadding="1" cellspacing="1" width="100%" style=" font-family: Arial,DFKai-sb;">
+                <tr>
+                    <td colspan="2" height="23" class="SubTitleFont">
+                        <strong>病情摘要</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" height="23" class="column">檢驗值</td>
+                    <td style="padding-left:10px;color:@value_color;">
+                        @ViewBag.hp
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" height="23" class="column">檢驗項目</td>
+                    <td style="padding-left:10px">
+                        @ViewBag.ip
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </Content>
+    </body>
+    </html>
+
+
+</xsl:template>
+</xsl:stylesheet>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.report_id }) |
     @Html.ActionLink("Back to List", "Index")

@@ -272,7 +272,7 @@ namespace Lineee.Controllers
             client.Timeout = 5000;
             var request = new RestRequest(Method.POST);
             request.AlwaysMultipartFormData = true;
-            request.AddParameter("msg", "https://lineeeeee.azurewebsites.net/reports/Details?test=" + Encrypt()+ "\n\n[回覆格式]\n診斷:{檢驗單號}-{處理方式}\n\n範例:\n診斷:7049-打胰島素\n診斷:7050-無");
+            request.AddParameter("msg", "https://lineee.azurewebsites.net/reports/Details?test=" + Encrypt()+ "\n\n[回覆格式]\n診斷:{檢驗單號}-{處理方式}\n\n範例:\n診斷:7049-打胰島素\n診斷:7050-無");
             IRestResponse response = client.Execute(request);
 
             return RedirectToAction("Index"); 

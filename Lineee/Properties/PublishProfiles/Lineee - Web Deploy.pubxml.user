@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+此檔案由您的 Web 專案發佈/封裝處理序使用。您可以藉由編輯此 MSBuild 檔案，
+自訂此處理序的行為。若要深入了解，請前往 https://go.microsoft.com/fwlink/?LinkID=208121。 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAgaYb2ndwp0izL+lBLEnA5gAAAAACAAAAAAAQZgAAAAEAACAAAAA4FOixRiQqS63Q5PKD9Kqc8SIls2AMYSIYe8ROi16TSAAAAAAOgAAAAAIAACAAAAC4BYbOAx5BlqU8iAH1l2bYhXcAmLjAKeabYsBKtncCP4AAAADPuxERk9qYvq1tZ2m77NE4HrPZBp+WJKxoxjOcHNgxDGUPEMz4j8TFxUZVUJnwizGmehstFQfe+2PUQPUoq5hcqVVTB8QihzUExxHKYf1EOXYTW1z+YAVMpNwjUY4UfzfGZkAuHkywIUD2OXHjZvzxrkJxg9WcUD8PBU3Qw98bv0AAAADA/oF+q/r+wb/2yk1EBdQVfT80nEGGJTS15IH5Z2FoX5Otmm/ufIyoNgsX70TY+CO64rElLhaAbGyswMzkahpr</EncryptedPassword>
+    <History>True|2022-05-05T09:58:09.6160718Z;True|2022-05-05T17:51:42.7592692+08:00;</History>
+  </PropertyGroup>
+</Project>
