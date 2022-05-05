@@ -114,7 +114,19 @@
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
 
-        @Html.ActionLink("Details", "Details1", new { id = item.report_id }) |
+        @Html.ActionLink("Details", "Details1", new {
+       id = item.report_id,
+       ap = item.ExaOrders.exam_id,
+       bp = item.ExaOrders.Patient.patient_name,
+       cp = item.ExaOrders.Patient.gender,
+       dp = item.report_date.ToString("yyyy/MM/dd"),
+       ep = item.ExaOrders.Doctor.doctor_name,
+       fp = item.ExaOrders.Patient.birth_date.ToString("yyyy/MM/dd"),
+       gp = item.ExaOrders.Patient.blood,
+       hp = item.exam_value,
+       ip = item.exam_name,
+       jp = item.ExaOrders.Patient.id_card
+   }) |
 
         @Html.ActionLink("Delete", "Delete", new { id = item.report_id })
     </td>
