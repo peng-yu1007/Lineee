@@ -37,19 +37,8 @@ namespace Lineee.Controllers
         //GET: Reports/Details/5
 
         //[HttpGet("{id}")]
-        public ActionResult Details1(int? id, string ap, string bp, string cp, string dp, string ep, string fp, string gp, string hp, string ip, string jp)
+        public ActionResult Details1(int? id)
         {
-            ViewBag.ap = ap;
-            ViewBag.bp = bp;
-            ViewBag.cp = cp;
-            ViewBag.dp = dp;
-            ViewBag.ep = ep;
-            ViewBag.fp = fp;
-            ViewBag.gp = gp;
-            ViewBag.hp = hp;
-            ViewBag.ip = ip;
-            ViewBag.jp = jp;
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

@@ -151,15 +151,15 @@
                                             <tr>
                                                 <td width="115px" class="column">診斷醫師:</td>
                                                 <td width="115px">
-                                                    @ViewBag.ep
+                                                    @Model.ExaOrders.Doctor.doctor_name
                                                 </td>
                                                 <td width="115px" class="column">報告日期:</td>
                                                 <td>
-                                                    @ViewBag.dp
+                                                    @Model.report_date.ToString("yyyy/MM/dd")
                                                 </td>
                                                 <td width="115px" class="column">病歷號碼:</td>
                                                 <td width="115px">
-                                                    @ViewBag.ap
+                                                    @Model.ExaOrders.exam_id
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -193,7 +193,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    @ViewBag.ap
+                                    @Model.ExaOrders.exam_id
                                 </td>
                                 <td class="column">
                                     <span>
@@ -201,7 +201,7 @@
                                     </span>
                                 </td>
                                 <td align="center">
-                                    @ViewBag.bp
+                                    @Model.ExaOrders.Patient.patient_name
                                 </td>
                                 <td class="column">
                                     <span>
@@ -209,7 +209,7 @@
                                     </span>
                                 </td>
                                 <td align="center">
-                                    @ViewBag.fp
+                                    @Model.ExaOrders.Patient.birth_date.ToString("yyyy/MM/dd")
                                 </td>
                             </tr>
                             <tr align="center">
@@ -219,7 +219,7 @@
                                     </span>
                                 </td>
                                 <td align="center">
-                                    @ViewBag.cp
+                                    @Model.ExaOrders.Patient.gender
                                 </td>
                                 <td class="column">
                                     <span>
@@ -227,11 +227,11 @@
                                     </span>
                                 </td>
                                 <td align="center" style="text-transform:uppercase;">
-                                    @ViewBag.jp
+                                    @Model.exam_name
                                 </td>
                                 <td class="column">血型</td>
                                 <td colspan="3" style="text-transform:uppercase;">
-                                    @ViewBag.gp
+                                    @Model.ExaOrders.Patient.blood
                                 </td>
                             </tr>
                         </tbody>
@@ -246,13 +246,13 @@
                         <tr>
                             <td width="100" height="23" class="column">檢驗值</td>
                             <td style="padding-left:10px;color:@value_color;">
-                                @ViewBag.hp
+                                @Model.exam_value
                             </td>
                         </tr>
                         <tr>
                             <td width="100" height="23" class="column">檢驗項目</td>
                             <td style="padding-left:10px">
-                                @ViewBag.ip
+                                @Model.exam_name
                             </td>
                         </tr>
                     </table>
