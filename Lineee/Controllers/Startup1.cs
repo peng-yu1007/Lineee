@@ -17,7 +17,11 @@ namespace Lineee.Controllers
             // Wire Web API
             var httpConfiguration = new HttpConfiguration();
             httpConfiguration.MapHttpAttributeRoutes();
-
+            httpConfiguration.Routes.MapHttpRoute(
+                name: "DefaultApi",
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
             app.UseWebApi(httpConfiguration);
         }
     }
