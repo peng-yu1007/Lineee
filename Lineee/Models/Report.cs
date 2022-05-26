@@ -28,5 +28,6 @@ namespace Lineee.Models
         public string key { get; set; }
 
         public string text { get; set; }
+
     }
 }
