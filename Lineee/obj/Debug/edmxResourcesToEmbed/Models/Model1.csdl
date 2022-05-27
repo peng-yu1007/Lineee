@@ -74,6 +74,7 @@
     <Property Name="exam_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="report_date" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="ExaOrders" Relationship="Self.FK_檢驗報告_檢驗單號" FromRole="Report" ToRole="ExaOrders" />
+    <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_檢驗細項索引檔_檢驗項目索引檔">
     <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
@@ -179,5 +180,14 @@
       <End Role="ExaOrders" EntitySet="ExaOrders" />
       <End Role="Report" EntitySet="Report" />
     </AssociationSet>
+    <EntitySet Name="Return" EntityType="LineNotify1Model.Return" />
   </EntityContainer>
+  <EntityType Name="Return">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="exam_number" Type="Int32" Nullable="false" />
+  </EntityType>
 </Schema>

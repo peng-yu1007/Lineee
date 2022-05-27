@@ -179,5 +179,14 @@
       <End Role="ExaOrders" EntitySet="ExaOrders" />
       <End Role="Report" EntitySet="Report" />
     </AssociationSet>
+    <EntitySet Name="Return" EntityType="LineNotify1Model.Return" />
   </EntityContainer>
+  <EntityType Name="Return">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="exam_number" Type="Int32" />
+  </EntityType>
 </Schema>

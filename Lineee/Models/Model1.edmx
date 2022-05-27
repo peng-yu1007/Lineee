@@ -67,19 +67,16 @@
           <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="exam_value" Type="nvarchar(max)" />
           <Property Name="report_date" Type="date" Nullable="false" />
+          <Property Name="msg" Type="nvarchar(max)" />
         </EntityType>
-        <Association Name="FK_Details_Exam">
-          <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
-          <End Role="Details" Type="Self.Details" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Exam">
-              <PropertyRef Name="exam_id" />
-            </Principal>
-            <Dependent Role="Details">
-              <PropertyRef Name="exam_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="Return">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="msg" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="exam_number" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK_ExaOrderDetails_ExaOrders">
           <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
           <End Role="ExaOrderDetails" Type="Self.ExaOrderDetails" Multiplicity="*" />
@@ -148,10 +145,7 @@
           <EntitySet Name="ExaOrders" EntityType="Self.ExaOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Details_Exam" Association="Self.FK_Details_Exam">
-            <End Role="Exam" EntitySet="Exam" />
-            <End Role="Details" EntitySet="Details" />
-          </AssociationSet>
+          <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ExaOrderDetails_ExaOrders" Association="Self.FK_ExaOrderDetails_ExaOrders">
             <End Role="ExaOrders" EntitySet="ExaOrders" />
             <End Role="ExaOrderDetails" EntitySet="ExaOrderDetails" />
@@ -251,6 +245,7 @@
           <Property Name="exam_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="report_date" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ExaOrders" Relationship="Self.FK_檢驗報告_檢驗單號" FromRole="Report" ToRole="ExaOrders" />
+          <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_檢驗細項索引檔_檢驗項目索引檔">
           <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
@@ -356,7 +351,16 @@
             <End Role="ExaOrders" EntitySet="ExaOrders" />
             <End Role="Report" EntitySet="Report" />
           </AssociationSet>
+          <EntitySet Name="Return" EntityType="LineNotify1Model.Return" />
         </EntityContainer>
+        <EntityType Name="Return">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="exam_number" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -425,11 +429,21 @@
           <EntitySetMapping Name="Report">
             <EntityTypeMapping TypeName="LineNotify1Model.Report">
               <MappingFragment StoreEntitySet="Report">
+                <ScalarProperty Name="msg" ColumnName="msg" />
                 <ScalarProperty Name="report_id" ColumnName="report_id" />
                 <ScalarProperty Name="exam_number" ColumnName="exam_number" />
                 <ScalarProperty Name="exam_name" ColumnName="exam_name" />
                 <ScalarProperty Name="exam_value" ColumnName="exam_value" />
                 <ScalarProperty Name="report_date" ColumnName="report_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Return">
+            <EntityTypeMapping TypeName="LineNotify1Model.Return">
+              <MappingFragment StoreEntitySet="Return">
+                <ScalarProperty Name="exam_number" ColumnName="exam_number" />
+                <ScalarProperty Name="msg" ColumnName="msg" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

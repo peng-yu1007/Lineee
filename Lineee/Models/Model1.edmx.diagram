@@ -18,6 +18,7 @@
         <AssociationConnector Association="LineNotify1Model.FK_檢驗單細項_檢驗單號" ManuallyRouted="false" />
         <AssociationConnector Association="LineNotify1Model.FK_檢驗單號_病人索引檔" ManuallyRouted="false" />
         <AssociationConnector Association="LineNotify1Model.FK_檢驗報告_檢驗單號" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LineNotify1Model.Return" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -30,6 +30,9 @@
         <th>
             @Html.DisplayName("報告日期")
         </th>
+        <th>
+            @Html.DisplayName("診斷內容")
+        </th>
         <th></th>
         <th></th>
     </tr>
@@ -111,6 +114,12 @@
     <td>
         @item.report_date.ToString("yyyy/MM/dd")
     </td>
+
+    <td>
+
+    </td>
+
+
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
 

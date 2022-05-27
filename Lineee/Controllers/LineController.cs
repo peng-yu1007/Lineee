@@ -45,40 +45,17 @@ namespace Lineee.Controllers
 
         public string Post([FromBody] Body body)
         {
-            try
-            {
-                db.Patient.Add(new Patient
-                {
-                    patient_id = 1234,
-                    id_card = "3011",
-                    patient_name = body.id,
-                    birth_date = DateTime.Now,
-                    blood = body.msg,
-                    gender = "abc"
+                db.Report.Add(new Report
+                {   
+                    exam_number= int.Parse(body.id),
+                    msg=body.msg
                 }
                    );
-                ;
+                
                 db.SaveChanges();
 
                 return "我來到一個島 他叫卡加布列島";
-            }
-            catch (Exception e)
-            {
-                db.Patient.Add(new Patient
-                {
-                    patient_id = 1234,
-                    id_card = "3011",
-                    patient_name = e.Message,
-                    birth_date = DateTime.Now,
-                    blood = e.Message,
-                    gender = "abc"
-                }
-                  );
-                ;
-                db.SaveChanges();
-
-                return "我來到一個島 他叫卡加布列島";
-            }
+         
         }
 
         // PUT api/<controller>/5

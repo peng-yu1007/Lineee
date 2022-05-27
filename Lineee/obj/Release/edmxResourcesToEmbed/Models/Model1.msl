@@ -71,5 +71,14 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Return">
+      <EntityTypeMapping TypeName="LineNotify1Model.Return">
+        <MappingFragment StoreEntitySet="Return">
+          <ScalarProperty Name="exam_number" ColumnName="exam_number" />
+          <ScalarProperty Name="msg" ColumnName="msg" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

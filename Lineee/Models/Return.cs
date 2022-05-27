@@ -11,22 +11,11 @@ namespace Lineee.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Report
-    {
-        public int report_id { get; set; }
-        public int exam_number { get; set; }
-        public string exam_name { get; set; }
-        public string exam_value { get; set; }
-        public System.DateTime report_date { get; set; }
-        public string msg { get; set; }
     
-        public virtual ExaOrders ExaOrders { get; set; }
-        public int exam_id { get; set; }
-
-        public string key { get; set; }
-
-        public string text { get; set; }
+    public partial class Return
+    {
+        public int id { get; set; }
+        public string msg { get; set; }
+        public int exam_number { get; set; }
     }
 }

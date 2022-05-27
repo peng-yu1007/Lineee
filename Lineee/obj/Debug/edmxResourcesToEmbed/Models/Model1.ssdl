@@ -62,19 +62,16 @@
     <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="exam_value" Type="nvarchar(max)" />
     <Property Name="report_date" Type="date" Nullable="false" />
+    <Property Name="msg" Type="nvarchar(max)" />
   </EntityType>
-  <Association Name="FK_Details_Exam">
-    <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
-    <End Role="Details" Type="Self.Details" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Exam">
-        <PropertyRef Name="exam_id" />
-      </Principal>
-      <Dependent Role="Details">
-        <PropertyRef Name="exam_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
+  <EntityType Name="Return">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="msg" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="exam_number" Type="int" Nullable="false" />
+  </EntityType>
   <Association Name="FK_ExaOrderDetails_ExaOrders">
     <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
     <End Role="ExaOrderDetails" Type="Self.ExaOrderDetails" Multiplicity="*" />
@@ -143,10 +140,7 @@
     <EntitySet Name="ExaOrders" EntityType="Self.ExaOrders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Report" EntityType="Self.Report" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_Details_Exam" Association="Self.FK_Details_Exam">
-      <End Role="Exam" EntitySet="Exam" />
-      <End Role="Details" EntitySet="Details" />
-    </AssociationSet>
+    <EntitySet Name="Return" EntityType="Self.Return" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_ExaOrderDetails_ExaOrders" Association="Self.FK_ExaOrderDetails_ExaOrders">
       <End Role="ExaOrders" EntitySet="ExaOrders" />
       <End Role="ExaOrderDetails" EntitySet="ExaOrderDetails" />
