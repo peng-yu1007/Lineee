@@ -41,6 +41,7 @@
     <Property Name="patient_id" Type="int" Nullable="false" />
     <Property Name="doctor_id" Type="int" Nullable="false" />
     <Property Name="order_date" Type="date" Nullable="false" />
+    <Property Name="msg" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Patient">
     <Key>
@@ -68,8 +69,8 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="msg" Type="nvarchar(max)" />
-    <Property Name="exam_number" Type="int" />
+    <Property Name="msg" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="exam_number" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_ExaOrderDetails_ExaOrders">
     <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />

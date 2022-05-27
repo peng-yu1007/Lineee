@@ -39,6 +39,7 @@
 
     @foreach (var item in Model)
     {
+        
 
         double low_value =0;
         double high_value = 0;
@@ -114,16 +115,17 @@
     <td>
         @item.report_date.ToString("yyyy/MM/dd")
     </td>
-
+        
     <td>
-
+        @Html.DisplayFor(modelItem => item.ExaOrders.msg)
     </td>
 
 
     <td>
         @Html.ActionLink("Edit", "Edit", new { id = item.report_id }) |
 
-        @Html.ActionLink("Details", "Details1", new {
+        @Html.ActionLink("Details", "Details1", new
+        {
        id = item.report_id,
    }) |
 

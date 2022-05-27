@@ -50,7 +50,8 @@
     <NavigationProperty Name="Exam" Relationship="Self.FK_檢驗單號_檢驗項目索引檔" FromRole="ExaOrders" ToRole="Exam" />
     <NavigationProperty Name="ExaOrderDetails" Relationship="Self.FK_檢驗單細項_檢驗單號" FromRole="ExaOrders" ToRole="ExaOrderDetails" />
     <NavigationProperty Name="Patient" Relationship="Self.FK_檢驗單號_病人索引檔" FromRole="ExaOrders" ToRole="Patient" />
-    <NavigationProperty Name="Report" Relationship="Self.FK_檢驗報告_檢驗單號" FromRole="ExaOrders" ToRole="Report" />
+    <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Report" Relationship="LineNotify1Model.FK_Report_ExaOrders" FromRole="ExaOrders" ToRole="Report" />
   </EntityType>
   <EntityType Name="Patient">
     <Key>
@@ -63,17 +64,6 @@
     <Property Name="blood" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="gender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="ExaOrders" Relationship="Self.FK_檢驗單號_病人索引檔" FromRole="Patient" ToRole="ExaOrders" />
-  </EntityType>
-  <EntityType Name="Report">
-    <Key>
-      <PropertyRef Name="report_id" />
-    </Key>
-    <Property Name="report_id" Type="Int32" Nullable="false" />
-    <Property Name="exam_number" Type="Int32" Nullable="false" />
-    <Property Name="exam_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="exam_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="report_date" Type="DateTime" Nullable="false" Precision="0" />
-    <NavigationProperty Name="ExaOrders" Relationship="Self.FK_檢驗報告_檢驗單號" FromRole="Report" ToRole="ExaOrders" />
   </EntityType>
   <Association Name="FK_檢驗細項索引檔_檢驗項目索引檔">
     <End Role="Exam" Type="Self.Exam" Multiplicity="1" />
@@ -135,18 +125,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_檢驗報告_檢驗單號">
-    <End Role="ExaOrders" Type="Self.ExaOrders" Multiplicity="1" />
-    <End Role="Report" Type="Self.Report" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ExaOrders">
-        <PropertyRef Name="exam_number" />
-      </Principal>
-      <Dependent Role="Report">
-        <PropertyRef Name="exam_number" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityContainer Name="LineNotify1Entities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Details" EntityType="Self.Details" />
     <EntitySet Name="Doctor" EntityType="Self.Doctor" />
@@ -154,7 +132,6 @@
     <EntitySet Name="ExaOrderDetails" EntityType="Self.ExaOrderDetails" />
     <EntitySet Name="ExaOrders" EntityType="Self.ExaOrders" />
     <EntitySet Name="Patient" EntityType="Self.Patient" />
-    <EntitySet Name="Report" EntityType="Self.Report" />
     <AssociationSet Name="FK_檢驗細項索引檔_檢驗項目索引檔" Association="Self.FK_檢驗細項索引檔_檢驗項目索引檔">
       <End Role="Exam" EntitySet="Exam" />
       <End Role="Details" EntitySet="Details" />
@@ -175,18 +152,42 @@
       <End Role="Patient" EntitySet="Patient" />
       <End Role="ExaOrders" EntitySet="ExaOrders" />
     </AssociationSet>
-    <AssociationSet Name="FK_檢驗報告_檢驗單號" Association="Self.FK_檢驗報告_檢驗單號">
+    <EntitySet Name="Return" EntityType="LineNotify1Model.Return" />
+    <EntitySet Name="Report" EntityType="LineNotify1Model.Report" />
+    <AssociationSet Name="FK_Report_ExaOrders" Association="LineNotify1Model.FK_Report_ExaOrders">
       <End Role="ExaOrders" EntitySet="ExaOrders" />
       <End Role="Report" EntitySet="Report" />
     </AssociationSet>
-    <EntitySet Name="Return" EntityType="LineNotify1Model.Return" />
   </EntityContainer>
   <EntityType Name="Return">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="exam_number" Type="Int32" />
+    <Property Name="msg" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="exam_number" Type="Int32" Nullable="false" />
   </EntityType>
+  <EntityType Name="Report">
+    <Key>
+      <PropertyRef Name="report_id" />
+    </Key>
+    <Property Name="report_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="exam_number" Type="Int32" Nullable="false" />
+    <Property Name="exam_name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="exam_value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="report_date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="ExaOrders" Relationship="LineNotify1Model.FK_Report_ExaOrders" FromRole="Report" ToRole="ExaOrders" />
+  </EntityType>
+  <Association Name="FK_Report_ExaOrders">
+    <End Type="LineNotify1Model.ExaOrders" Role="ExaOrders" Multiplicity="1" />
+    <End Type="LineNotify1Model.Report" Role="Report" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExaOrders">
+        <PropertyRef Name="exam_number" />
+      </Principal>
+      <Dependent Role="Report">
+        <PropertyRef Name="exam_number" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

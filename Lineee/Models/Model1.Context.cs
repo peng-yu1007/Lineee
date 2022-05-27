@@ -31,7 +31,7 @@ namespace Lineee.Models
         public virtual DbSet<ExaOrderDetails> ExaOrderDetails { get; set; }
         public virtual DbSet<ExaOrders> ExaOrders { get; set; }
         public virtual DbSet<Patient> Patient { get; set; }
-        public virtual DbSet<Report> Report { get; set; }
         public virtual DbSet<Return> Return { get; set; }
+        public virtual DbSet<Report> Report { get; set; }
     }
 }

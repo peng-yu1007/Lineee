@@ -40,6 +40,7 @@
     <EntitySetMapping Name="ExaOrders">
       <EntityTypeMapping TypeName="LineNotify1Model.ExaOrders">
         <MappingFragment StoreEntitySet="ExaOrders">
+          <ScalarProperty Name="msg" ColumnName="msg" />
           <ScalarProperty Name="exam_number" ColumnName="exam_number" />
           <ScalarProperty Name="exam_id" ColumnName="exam_id" />
           <ScalarProperty Name="patient_id" ColumnName="patient_id" />
@@ -60,24 +61,23 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Report">
-      <EntityTypeMapping TypeName="LineNotify1Model.Report">
-        <MappingFragment StoreEntitySet="Report">
-          <ScalarProperty Name="msg" ColumnName="msg" />
-          <ScalarProperty Name="report_id" ColumnName="report_id" />
-          <ScalarProperty Name="exam_number" ColumnName="exam_number" />
-          <ScalarProperty Name="exam_name" ColumnName="exam_name" />
-          <ScalarProperty Name="exam_value" ColumnName="exam_value" />
-          <ScalarProperty Name="report_date" ColumnName="report_date" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Return">
       <EntityTypeMapping TypeName="LineNotify1Model.Return">
         <MappingFragment StoreEntitySet="Return">
           <ScalarProperty Name="exam_number" ColumnName="exam_number" />
           <ScalarProperty Name="msg" ColumnName="msg" />
           <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Report">
+      <EntityTypeMapping TypeName="LineNotify1Model.Report">
+        <MappingFragment StoreEntitySet="Report">
+          <ScalarProperty Name="report_date" ColumnName="report_date" />
+          <ScalarProperty Name="exam_value" ColumnName="exam_value" />
+          <ScalarProperty Name="exam_name" ColumnName="exam_name" />
+          <ScalarProperty Name="exam_number" ColumnName="exam_number" />
+          <ScalarProperty Name="report_id" ColumnName="report_id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

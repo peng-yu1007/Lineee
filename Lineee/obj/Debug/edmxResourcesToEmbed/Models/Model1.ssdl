@@ -41,6 +41,7 @@
     <Property Name="patient_id" Type="int" Nullable="false" />
     <Property Name="doctor_id" Type="int" Nullable="false" />
     <Property Name="order_date" Type="date" Nullable="false" />
+    <Property Name="msg" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Patient">
     <Key>
@@ -62,7 +63,6 @@
     <Property Name="exam_name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="exam_value" Type="nvarchar(max)" />
     <Property Name="report_date" Type="date" Nullable="false" />
-    <Property Name="msg" Type="nvarchar(max)" />
   </EntityType>
   <EntityType Name="Return">
     <Key>

@@ -1,6 +1,7 @@
 ﻿using Lineee.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -45,16 +46,12 @@ namespace Lineee.Controllers
 
         public string Post([FromBody] Body body)
         {
-                db.Report.Add(new Report
-                {   
-                    exam_number= int.Parse(body.id),
-                    msg=body.msg
-                }
-                   );
-                
-                db.SaveChanges();
-
-                return "我來到一個島 他叫卡加布列島";
+            int return_id = int.Parse(body.id);
+            ExaOrders ExaOrders = db.ExaOrders.Find(return_id);
+            ExaOrders.msg = body.msg;
+            db.Entry(ExaOrders).State = EntityState.Modified;
+            db.SaveChanges();
+            return "我來到一個島 他叫卡加布列島"+ return_id;
          
         }
 
