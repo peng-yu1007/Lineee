@@ -157,9 +157,9 @@
                                 <td>
                                     @Model.report_date.ToString("yyyy/MM/dd")
                                 </td>
-                                <td width="115px" class="column">病歷號碼:</td>
+                                <td width="115px" class="column">檢驗單號</td>
                                 <td width="115px">
-                                    @Model.ExaOrders.exam_id
+                                    @Model.ExaOrders.exam_number
                                 </td>
                             </tr>
                         </tbody>
@@ -253,6 +253,12 @@
                     <td width="100" height="23" class="column">檢驗項目</td>
                     <td style="padding-left:10px">
                         @Model.exam_name
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" height="23" class="column">診斷內容</td>
+                    <td style="padding-left:10px">
+                        @Model.ExaOrders.msg
                     </td>
                 </tr>
             </table>
